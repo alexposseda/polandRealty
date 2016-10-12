@@ -1,7 +1,7 @@
 <?php
-
+    
     use yii\db\Migration;
-
+    
     /**
      * Handles the creation for table `realty`.
      */
@@ -15,7 +15,7 @@
                 // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
                 $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
             }
-
+            
             $this->createTable('{{%realty}}', [
                 'id'               => $this->primaryKey(),
                 'ad_type_id'       => $this->integer(),
@@ -33,14 +33,14 @@
                                            ->notNull(),
                 'updated_at'       => $this->integer()
                                            ->notNull(),
-
+            
             ], $tableOptions);
-
+            
             $this->addForeignKey('AdType_FK', '{{%realty}}', 'ad_type_id', '{{%ad_type}}', 'id', 'SET NULL', 'CASCADE');
             $this->addForeignKey('PropertyType_FK', '{{%realty}}', 'property_type_id', '{{%property_type}}', 'id', 'SET NULL', 'CASCADE');
             $this->addForeignKey('BuildingType_FK', '{{%realty}}', 'building_type_id', '{{%building_type}}', 'id', 'SET NULL', 'CASCADE');
         }
-
+        
         /**
          * @inheritdoc
          */
