@@ -28,7 +28,16 @@
          */
         public function behaviors(){
             return [
-                TimestampBehavior::className(),
+                [
+                    'class'      => TimestampBehavior::className(),
+                    'attributes' => [
+                        ActiveRecord::EVENT_BEFORE_INSERT => [
+                            'created_at',
+                            'updated_at'
+                        ],
+                        ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    ],
+                ]
             ];
         }
         
@@ -50,9 +59,7 @@
                         'name',
                         'phone',
                         'auth_key',
-                        'password_hash',
-                        'created_at',
-                        'updated_at'
+                        'password_hash'
                     ],
                     'required'
                 ],
