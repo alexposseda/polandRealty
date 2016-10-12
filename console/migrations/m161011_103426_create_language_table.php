@@ -17,8 +17,8 @@
             }
             $this->createTable('{{%language}}', [
                 'id'         => $this->primaryKey(),
-                'code'       => $this->string(4),
-                'title'      => $this->string(20),
+                'code'       => $this->string(4)->notNull()->unique(),
+                'title'      => $this->string(20)->notNull()->unique(),
                 'created_at' => $this->integer()
                                      ->notNull(),
                 'updated_at' => $this->integer()

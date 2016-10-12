@@ -18,7 +18,7 @@
 
             $this->createTable('{{%country}}', [
                 'id' => $this->primaryKey(),
-                'name' => $this->string(),
+                'name' => $this->string()->notNull()->unique(),
                 'created_at'  => $this->integer()
                                       ->notNull(),
                 'updated_at'  => $this->integer()

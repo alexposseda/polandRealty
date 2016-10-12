@@ -36,6 +36,6 @@
          */
         public function down(){
             $this->dropForeignKey('PropertyTypeLang_FK', '{{%property_type_lang}}');
-            $this->dropTable('property_type_lang');
+            $this->dropTable('{{%property_type_lang}}');
         }
     }

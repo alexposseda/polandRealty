@@ -21,8 +21,8 @@
                 'country_id' => $this->integer(),
                 'code' => $this->integer(),
                 'region' => $this->string(),
-                'city' => $this->string(),
-                'street' => $this->text(),
+                'city' => $this->string()->notNull(),
+                'street' => $this->text()->notNull(),
                 'created_at'  => $this->integer()
                                       ->notNull(),
                 'updated_at'  => $this->integer()

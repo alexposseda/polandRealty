@@ -21,14 +21,14 @@
                 'ad_type_id'       => $this->integer(),
                 'property_type_id' => $this->integer(),
                 'building_type_id' => $this->integer(),
-                'price'            => $this->float(),
+                'price'            => $this->float()->notNull(),
                 'area'             => $this->float(),
                 'floors_count'     => $this->integer(),
                 'floor'            => $this->integer(),
                 'rooms_count'      => $this->integer(),
                 'gallery'          => $this->text(),
-                'description'      => $this->text(),
-                'contact'          => $this->text(),
+                'description'      => $this->text()->notNull(),
+                'contact'          => $this->text()->notNull(),
                 'created_at'       => $this->integer()
                                            ->notNull(),
                 'updated_at'       => $this->integer()
