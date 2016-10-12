@@ -2,6 +2,8 @@
 
     namespace console\controllers;
 
+    use rbac\DeleteAdRule;
+    use rbac\UpdateAdRule;
     use Yii;
     use yii\console\Controller;
 
@@ -24,9 +26,25 @@
             $adminAccess = $auth->createPermission('adminAccess');
             $auth->add($adminAccess);
             
+            $updateRule = new UpdateAdRule();
+            $auth->add($updateRule);
+            $updateOwnAd = $auth->createPermission('updateOwnAd');
+            $updateOwnAd->ruleName = $updateRule->name;
+            $auth->add($updateOwnAd);
+            $auth->addChild($updateOwnAd, $updateAd);
+    
+            $deleteRule = new DeleteAdRule();
+            $auth->add($deleteRule);
+            $deleteOwnAd = $auth->createPermission('deleteOwnAd');
+            $deleteOwnAd->ruleName = $deleteRule->name;
+            $auth->add($deleteOwnAd);
+            $auth->addChild($deleteOwnAd, $deleteAd);
+            
             $registeredUser = $auth->createRole('registeredUser');
             $auth->add($registeredUser);
             $auth->addChild($registeredUser, $createAd);
+            $auth->addChild($registeredUser, $updateOwnAd);
+            $auth->addChild($registeredUser, $deleteOwnAd);
     
             $manager = $auth->createRole('manager');
             $auth->add($manager);
