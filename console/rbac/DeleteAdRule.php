@@ -1,12 +1,12 @@
 <?php
 
-    namespace rbac;
+    namespace console\rbac;
 
     use yii\rbac\Item;
     use yii\rbac\Rule;
 
-    class UpdateAdRule extends Rule{
-        public $name = 'updateAdRule';
+    class DeleteAdRule extends Rule{
+        public $name = 'deleteAdRule';
         /**
          * @param string|integer $user   the user ID.
          * @param Item           $item   the role or permission that this rule is associated width.
@@ -18,8 +18,7 @@
             if(isset($param['realty'])){
                 return $param['realty']->created_by == $user;
             }
-            
+    
             return false;
         }
-
     }

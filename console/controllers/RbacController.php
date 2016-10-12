@@ -2,8 +2,8 @@
 
     namespace console\controllers;
 
-    use rbac\DeleteAdRule;
-    use rbac\UpdateAdRule;
+    use console\rbac\DeleteAdRule;
+    use console\rbac\UpdateAdRule;
     use Yii;
     use yii\console\Controller;
 
