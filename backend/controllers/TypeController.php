@@ -2,6 +2,7 @@
 
     namespace backend\controllers;
 
+    use common\models\AdType;
     use Yii;
     use yii\bootstrap\Html;
     use yii\data\ActiveDataProvider;
@@ -32,19 +33,17 @@
 
             $columns = [
                 ['class' => SerialColumn::className()],
-                'title',
-                'created_at:datetime',
-                'updated_at:datetime',
                 [
                     'content' => function($model) use ($nameModel){
-                        $res = Html::a('Update', ['update', 'nameModel' => $nameModel, 'id' => $model->id], ['class' => 'btn btn-info']);
+                        $res = Html::a('Update', ['type/'.$nameModel.'/update/'.$model->id], ['class' => 'btn btn-info']);
                         $res .= ' ';
-                        $res .= Html::a('Delete', ['update', 'nameModel' => $nameModel, 'id' => $model->id,], ['class' => 'btn btn-danger']);
+                        $res .= Html::a('Delete', ['type/'.$nameModel.'/delete/'.$model->id], ['class' => 'btn btn-danger']);
 
                         return $res;
                     },
                 ],
             ];
+            array_splice($columns, 1, 0, $mod::getAttrib('full'));
 
             return $this->render('index', ['dataProvider' => $dataProvider, 'nameModel' => $nameModel, 'columns' => $columns]);
         }
@@ -56,7 +55,7 @@
             $model = new $mod();
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
-                return $this->redirect(['index', 'nameModel' => $nameModel]);
+                return $this->redirect([$nameModel]);
             }
 
             return $this->render('create', ['model' => $model]);
@@ -72,10 +71,19 @@
             }
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
-                return $this->redirect(['index', 'nameModel' => $nameModel]);
+                return $this->redirect([$nameModel]);
             }
 
             return $this->render('update', ['model' => $model]);
+        }
+
+        public function actionDelete($nameModel, $id){
+            $mod = $this->getModel($nameModel);
+            /** @var ActiveRecord $mod */
+            $mod::findOne($id)
+                ->delete();
+
+            return $this->redirect([$nameModel]);
         }
 
         public function getModel($nameModel){

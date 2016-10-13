@@ -77,4 +77,14 @@ class BuildingType extends ActiveRecord
     {
         return $this->hasMany(Realty::className(), ['building_type_id' => 'id']);
     }
+
+    public static function getAttrib($name = 'full'){
+        $attr = [
+            'full'   => ['title', 'created_at:datetime', 'updated_at:datetime'],
+            'create'   => ['title'],
+        ];
+
+        return $attr[$name];
+    }
+
 }
