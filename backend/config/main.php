@@ -38,10 +38,10 @@
                 'enablePrettyUrl' => true,
                 'showScriptName'  => false,
                 'rules'           => [
-                    '/'                                                         => 'site/index',
-                    '<controler>/<nameModel>/<action:(create)>' => 'type/<action>',
-                    '<controler>/<nameModel>/<action:(update|delete)>/<id:\d+>' => 'type/<action>',
-                    '<controler>/<nameModel>'                                   => 'type/index',
+                    '/'                                                  => 'site/index',
+                    'type/<nameModel>/<action:(create)>'                 => 'type/<action>',
+                    'type/<nameModel>/<action:(update|delete)>/<id:\d+>' => 'type/<action>',
+                    'type/<nameModel:^(realty-\w+)>'                                   => 'type/index',
 
                 ],
             ],

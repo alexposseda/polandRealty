@@ -1,11 +1,11 @@
 <?php
-    
+
     namespace common\models;
-    
+
     use Yii;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
-    
+
     /**
      * This is the model class for table "{{%user}}".
      *
@@ -32,14 +32,14 @@
                 TimestampBehavior::className(),
             ];
         }
-        
+
         /**
          * @inheritdoc
          */
         public static function tableName(){
             return '{{%user}}';
         }
-        
+
         /**
          * @inheritdoc
          */
@@ -52,15 +52,15 @@
                         'auth_key',
                         'password_hash',
                     ],
-                    'required'
+                    'required',
                 ],
                 [
                     [
                         'status',
                         'created_at',
-                        'updated_at'
+                        'updated_at',
                     ],
-                    'integer'
+                    'integer',
                 ],
                 [
                     [
@@ -69,27 +69,27 @@
                         'phone',
                         'password_hash',
                         'password_reset_token',
-                        'email_confirm_token'
+                        'email_confirm_token',
                     ],
                     'string',
-                    'max' => 255
+                    'max' => 255,
                 ],
                 [
                     ['auth_key'],
                     'string',
-                    'max' => 32
+                    'max' => 32,
                 ],
                 [
                     ['email'],
-                    'unique'
+                    'unique',
                 ],
                 [
                     ['password_reset_token', 'email_confirm_token'],
-                    'unique'
+                    'unique',
                 ],
             ];
         }
-        
+
         /**
          * @inheritdoc
          */
@@ -108,11 +108,30 @@
                 'updated_at'           => 'Updated At',
             ];
         }
-        
+
         /**
          * @return \yii\db\ActiveQuery
          */
         public function getRealties(){
             return $this->hasMany(Realty::className(), ['created_by' => 'id']);
+        }
+
+        public static function getAttrib($name = 'full'){
+
+            $attr = [
+                'full'   => [
+                    'email',
+                    'name',
+                    'phone',
+                    'status',
+                    'created_at:datetime',
+                    'updated_at:datetime',
+                ],
+                'create' => [
+                    'status',
+                ],
+            ];
+
+            return $attr[$name];
         }
     }

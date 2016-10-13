@@ -2,11 +2,15 @@
 
     namespace backend\controllers;
 
-    use common\models\AdType;
+    use backend\models\RealtyGallery;
     use Yii;
+    use yii\alexposseda\fileManager\actions\RemoveAction;
+    use yii\alexposseda\fileManager\actions\UploadAction;
     use yii\bootstrap\Html;
     use yii\data\ActiveDataProvider;
     use yii\db\ActiveRecord;
+    use yii\filters\AccessControl;
+    use yii\filters\VerbFilter;
     use yii\grid\SerialColumn;
     use yii\web\Controller;
     use yii\web\NotFoundHttpException;
@@ -18,6 +22,47 @@
      * @package backend\controllers
      */
     class TypeController extends Controller{
+        /**
+         * @inheritdoc
+         */
+        public function behaviors(){
+            return [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'rules' => [
+                        [
+                            'allow' => true,
+                            'roles' => ['admin'],
+                        ],
+                    ],
+                ],
+                'verbs'  => [
+                    'class'   => VerbFilter::className(),
+                    'actions' => [
+                        'delete' => ['post'],
+                    ],
+                ],
+            ];
+        }
+
+        public function actions(){
+            return [
+                'realty-upload' => [
+                    'class'         => UploadAction::className(),
+                    'uploadPath'    => 'realty',
+                    'sessionEnable' => true,
+                    'uploadModel'   => new RealtyGallery([
+                                                            'validationRules' => [
+                                                                'extensions' => 'jpg, png',
+                                                                'maxSize'    => 1024 * 1024 * 2,
+                                                            ],
+                                                        ]),
+                ],
+                'realty-remove' => [
+                    'class' => RemoveAction::className(),
+                ],
+            ];
+        }
 
         /**
          * @param $nameModel string
