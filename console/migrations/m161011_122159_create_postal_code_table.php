@@ -17,14 +17,17 @@
             }
 
             $this->createTable('{{%postal_code}}', [
-                'id' => $this->primaryKey(),
+                'id'         => $this->primaryKey(),
                 'country_id' => $this->integer(),
-                'code' => $this->integer(),
-                'region' => $this->string(),
-                'city' => $this->string()->notNull(),
-                'street' => $this->text()->notNull(),
-                'created_at'  => $this->integer(),
-                'updated_at'  => $this->integer(),
+                'code'       => $this->integer()
+                                     ->notNull(),
+                'region'     => $this->string(),
+                'city'       => $this->string()
+                                     ->notNull(),
+                'street'     => $this->text()
+                                     ->notNull(),
+                'created_at' => $this->integer(),
+                'updated_at' => $this->integer(),
             ], $tableOptions);
 
             $this->addForeignKey('CountryId_FK', '{{%postal_code}}', 'country_id', '{{%country}}', 'id', 'RESTRICT', 'CASCADE');

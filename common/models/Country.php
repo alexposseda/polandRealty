@@ -77,4 +77,13 @@ class Country extends ActiveRecord
     {
         return $this->hasMany(PostalCode::className(), ['country_id' => 'id']);
     }
+
+    public static function getAttrib($name = 'full'){
+        $attr = [
+            'full'   => ['name', 'created_at:datetime', 'updated_at:datetime'],
+            'create'   => ['name'],
+        ];
+
+        return $attr[$name];
+    }
 }

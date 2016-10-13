@@ -37,7 +37,7 @@
                                        $createdTime
                                    ],
                                    [
-                                       'po',
+                                       'pl',
                                        'polski',
                                        $createdTime,
                                        $createdTime
