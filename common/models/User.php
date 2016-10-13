@@ -16,6 +16,7 @@
      * @property string   $auth_key
      * @property string   $password_hash
      * @property string   $password_reset_token
+     * @property string   $email_confirm_token
      * @property integer  $status
      * @property integer  $created_at
      * @property integer  $updated_at
@@ -28,16 +29,7 @@
          */
         public function behaviors(){
             return [
-                [
-                    'class'      => TimestampBehavior::className(),
-                    'attributes' => [
-                        ActiveRecord::EVENT_BEFORE_INSERT => [
-                            'created_at',
-                            'updated_at'
-                        ],
-                        ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                    ],
-                ]
+                TimestampBehavior::className(),
             ];
         }
         
@@ -57,9 +49,8 @@
                     [
                         'email',
                         'name',
-                        'phone',
                         'auth_key',
-                        'password_hash'
+                        'password_hash',
                     ],
                     'required'
                 ],
@@ -77,7 +68,8 @@
                         'name',
                         'phone',
                         'password_hash',
-                        'password_reset_token'
+                        'password_reset_token',
+                        'email_confirm_token'
                     ],
                     'string',
                     'max' => 255
@@ -92,15 +84,7 @@
                     'unique'
                 ],
                 [
-                    ['email'],
-                    'email'
-                ],
-                [
-                    ['phone'],
-                    'unique'
-                ],
-                [
-                    ['password_reset_token'],
+                    ['password_reset_token', 'email_confirm_token'],
                     'unique'
                 ],
             ];
@@ -118,6 +102,7 @@
                 'auth_key'             => 'Auth Key',
                 'password_hash'        => 'Password Hash',
                 'password_reset_token' => 'Password Reset Token',
+                'email_confirm_token'  => 'Email Confirm Token',
                 'status'               => 'Status',
                 'created_at'           => 'Created At',
                 'updated_at'           => 'Updated At',

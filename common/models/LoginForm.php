@@ -68,7 +68,7 @@
         }
         
         /**
-         * Finds user by [[username]]
+         * Finds user by email
          *
          * @return UserIdentity|null
          */

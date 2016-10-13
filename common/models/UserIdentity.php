@@ -86,6 +86,40 @@
         }
         
         /**
+         * Finds user by email confirm token
+         *
+         * @param string $token email confirm token
+         *
+         * @return static|null
+         */
+        public static function findByEmailConfirmToken($token){
+            if(!static::isEmailConfirmTokenValid($token)){
+                return null;
+            }
+            
+            return static::findOne([
+                                       'email_confirm_token' => $token
+                                   ]);
+        }
+        
+        /**
+         * Finds out if email confirm token is valid
+         *
+         * @param string $token email confirm token
+         *
+         * @return boolean
+         */
+        public static function isEmailConfirmTokenValid($token){
+            if(empty($token)){
+                return false;
+            }
+            
+            $timestamp = (int)substr($token, strrpos($token, '_') + 1);
+            $expire    = Yii::$app->params['user.emailConfirmTokenExpire'];
+            return $timestamp + $expire >= time();
+        }
+        
+        /**
          * @inheritdoc
          */
         public function getId(){
@@ -141,9 +175,23 @@
         }
         
         /**
+         * Generates new email confirm token
+         */
+        public function generateEmailConfirmToken(){
+            $this->email_confirm_token = Yii::$app->security->generateRandomString().'_'.time();
+        }
+        
+        /**
          * Removes password reset token
          */
         public function removePasswordResetToken(){
             $this->password_reset_token = null;
+        }
+        
+        /**
+         * Removes email confirm token
+         */
+        public function removeEmailConfirmToken(){
+            $this->email_confirm_token = null;
         }
     }

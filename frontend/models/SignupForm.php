@@ -1,6 +1,7 @@
 <?php
     namespace frontend\models;
     
+    use common\components\Notify;
     use common\models\UserIdentity;
     use Yii;
     use yii\base\Exception;
@@ -64,7 +65,8 @@
          */
         public function signup(){
             if(!$this->validate()){
-                return null;
+                Notify::addMessages('error', $this->getErrors());
+                return false;
             }
             
             $user = new UserIdentity();
@@ -74,10 +76,10 @@
             $user->status = UserIdentity::STATUS_NOT_CONFIRMED;
             $user->setPassword($this->password);
             $user->generateAuthKey();
-            
+            $user->generateEmailConfirmToken();
+    
             $transaction = Yii::$app->db->beginTransaction();
             try{
-                $user->generatePasswordResetToken();
                 if(!$user->save()){
                     throw new Exception('registration failed (cannot save new user)');
                 }
@@ -92,13 +94,14 @@
                     ->setSubject('Confirm Email for ' . Yii::$app->name)
                     ->send();
                 if(!$isMailSend){
-                    throw new Exception('Cannot send email!');
+                    throw new Exception('Sorry, we are unable to send confirm for email provided!');
                 }
                 $transaction->commit();
-                
+                Notify::addMessages('success', 'Check your email for further instructions.');
                 return true;
             }catch(Exception $e){
                 $transaction->rollBack();
+                Notify::addMessages('error', $e->getMessage());
                 return false;
             }
         }

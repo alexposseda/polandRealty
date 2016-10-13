@@ -4,7 +4,7 @@
     /* @var $this yii\web\View */
     /* @var $user common\models\UserIdentity */
     
-    $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/confirm-email', 'token' => $user->password_reset_token]);
+    $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/confirm-email', 'token' => $user->email_confirm_token]);
 ?>
 <div class="password-reset">
     <p>Hello <?= Html::encode($user->name) ?>,</p>

@@ -1,6 +1,7 @@
 <?php
     return [
         'sourceLanguage' => 'en',
+        'language' => 'en',
         'vendorPath'     => dirname(dirname(__DIR__)).'/vendor',
         'components'     => [
             'cache'       => [
@@ -11,6 +12,9 @@
             ],
             'urlManager'  => [
                 'class'     => 'codemix\localeurls\UrlManager',
+                'showScriptName' => false,
+                'rules' => [
+                ],
                 'languages' => [
                     'en',
                     'pl'
