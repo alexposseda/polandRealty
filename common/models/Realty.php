@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%realty}}".
@@ -12,6 +13,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $ad_type_id
  * @property integer $property_type_id
  * @property integer $building_type_id
+ * @property integer $created_by
  * @property double $price
  * @property double $area
  * @property integer $floors_count
@@ -20,10 +22,9 @@ use yii\behaviors\TimestampBehavior;
  * @property string $gallery
  * @property string $description
  * @property string $contact
+ * @property string $status
  * @property integer $created_at
  * @property integer $updated_at
- * @property string $status
- * @property integer $created_by
  *
  * @property Location[] $locations
  * @property AdType $adType
@@ -32,7 +33,7 @@ use yii\behaviors\TimestampBehavior;
  * @property PropertyType $propertyType
  * @property RealtyLang[] $realtyLangs
  */
-class Realty extends \yii\db\ActiveRecord
+class Realty extends ActiveRecord
 {
     /**
         * @inheritdoc
@@ -57,8 +58,8 @@ class Realty extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ad_type_id', 'property_type_id', 'building_type_id', 'floors_count', 'floor', 'rooms_count', 'created_at', 'updated_at', 'created_by'], 'integer'],
-            [['price', 'description', 'contact', 'created_at', 'updated_at'], 'required'],
+            [['ad_type_id', 'property_type_id', 'building_type_id', 'created_by', 'floors_count', 'floor', 'rooms_count', 'created_at', 'updated_at'], 'integer'],
+            [['price', 'description', 'contact'], 'required'],
             [['price', 'area'], 'number'],
             [['gallery', 'description', 'contact', 'status'], 'string'],
             [['ad_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => AdType::className(), 'targetAttribute' => ['ad_type_id' => 'id']],
@@ -78,6 +79,7 @@ class Realty extends \yii\db\ActiveRecord
             'ad_type_id' => 'Ad Type ID',
             'property_type_id' => 'Property Type ID',
             'building_type_id' => 'Building Type ID',
+            'created_by' => 'Created By',
             'price' => 'Price',
             'area' => 'Area',
             'floors_count' => 'Floors Count',
@@ -86,10 +88,9 @@ class Realty extends \yii\db\ActiveRecord
             'gallery' => 'Gallery',
             'description' => 'Description',
             'contact' => 'Contact',
+            'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
-            'status' => 'Status',
-            'created_by' => 'Created By',
         ];
     }
 

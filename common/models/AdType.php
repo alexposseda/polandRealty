@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%ad_type}}".
@@ -16,7 +17,7 @@ use yii\behaviors\TimestampBehavior;
  * @property AdTypeLang[] $adTypeLangs
  * @property Realty[] $realties
  */
-class AdType extends \yii\db\ActiveRecord
+class AdType extends ActiveRecord
 {
     /**
         * @inheritdoc
@@ -41,7 +42,7 @@ class AdType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'created_at', 'updated_at'], 'required'],
+            [['title'], 'required'],
             [['created_at', 'updated_at'], 'integer'],
             [['title'], 'string', 'max' => 255],
             [['title'], 'unique'],

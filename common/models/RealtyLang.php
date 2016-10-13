@@ -4,20 +4,22 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%realty_lang}}".
  *
  * @property integer $id
  * @property integer $realty_id
- * @property string $lang
+ * @property integer $language
  * @property string $description
  * @property integer $created_at
  * @property integer $updated_at
  *
+ * @property Language $language0
  * @property Realty $realty
  */
-class RealtyLang extends \yii\db\ActiveRecord
+class RealtyLang extends ActiveRecord
 {
     /**
         * @inheritdoc
@@ -42,10 +44,9 @@ class RealtyLang extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['realty_id', 'created_at', 'updated_at'], 'integer'],
+            [['realty_id', 'language', 'created_at', 'updated_at'], 'integer'],
             [['description'], 'string'],
-            [['created_at', 'updated_at'], 'required'],
-            [['lang'], 'string', 'max' => 4],
+            [['language'], 'exist', 'skipOnError' => true, 'targetClass' => Language::className(), 'targetAttribute' => ['language' => 'id']],
             [['realty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Realty::className(), 'targetAttribute' => ['realty_id' => 'id']],
         ];
     }
@@ -58,11 +59,19 @@ class RealtyLang extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'realty_id' => 'Realty ID',
-            'lang' => 'Lang',
+            'language' => 'Language',
             'description' => 'Description',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLanguage0()
+    {
+        return $this->hasOne(Language::className(), ['id' => 'language']);
     }
 
     /**

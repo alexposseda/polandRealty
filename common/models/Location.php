@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%location}}".
@@ -21,7 +22,7 @@ use yii\behaviors\TimestampBehavior;
  * @property Country $country
  * @property Realty $realty
  */
-class Location extends \yii\db\ActiveRecord
+class Location extends ActiveRecord
 {
     /**
         * @inheritdoc
@@ -47,7 +48,7 @@ class Location extends \yii\db\ActiveRecord
     {
         return [
             [['realty_id', 'country_id', 'created_at', 'updated_at'], 'integer'],
-            [['city', 'street', 'coordinates', 'created_at', 'updated_at'], 'required'],
+            [['city', 'street', 'coordinates'], 'required'],
             [['city', 'region', 'street', 'coordinates'], 'string', 'max' => 255],
             [['country_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_id' => 'id']],
             [['realty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Realty::className(), 'targetAttribute' => ['realty_id' => 'id']],

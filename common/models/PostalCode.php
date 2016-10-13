@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "{{%postal_code}}".
@@ -19,7 +20,7 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property Country $country
  */
-class PostalCode extends \yii\db\ActiveRecord
+class PostalCode extends ActiveRecord
 {
     /**
         * @inheritdoc
@@ -45,7 +46,7 @@ class PostalCode extends \yii\db\ActiveRecord
     {
         return [
             [['country_id', 'code', 'created_at', 'updated_at'], 'integer'],
-            [['city', 'street', 'created_at', 'updated_at'], 'required'],
+            [['city', 'street'], 'required'],
             [['street'], 'string'],
             [['region', 'city'], 'string', 'max' => 255],
             [['country_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_id' => 'id']],
