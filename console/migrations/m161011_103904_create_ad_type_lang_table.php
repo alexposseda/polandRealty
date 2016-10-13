@@ -20,10 +20,8 @@
                 'ad_type_id' => $this->integer(),
                 'language'   => $this->integer(),
                 'title'      => $this->string(),
-                'created_at' => $this->integer()
-                                     ->notNull(),
-                'updated_at' => $this->integer()
-                                     ->notNull(),
+                'created_at' => $this->integer(),
+                'updated_at' => $this->integer(),
             ], $tableOptions);
             $this->addForeignKey('AdTypeLang_FK', '{{%ad_type_lang}}', 'ad_type_id', '{{%ad_type}}', 'id', 'CASCADE', 'CASCADE');
             $this->addForeignKey('LangCode_adtype_FK', '{{%ad_type_lang}}', 'language', '{{%language}}', 'id', 'CASCADE', 'CASCADE');

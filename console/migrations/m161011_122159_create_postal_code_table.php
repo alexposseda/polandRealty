@@ -23,10 +23,8 @@
                 'region' => $this->string(),
                 'city' => $this->string()->notNull(),
                 'street' => $this->text()->notNull(),
-                'created_at'  => $this->integer()
-                                      ->notNull(),
-                'updated_at'  => $this->integer()
-                                      ->notNull(),
+                'created_at'  => $this->integer(),
+                'updated_at'  => $this->integer(),
             ], $tableOptions);
 
             $this->addForeignKey('CountryId_FK', '{{%postal_code}}', 'country_id', '{{%country}}', 'id', 'RESTRICT', 'CASCADE');

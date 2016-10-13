@@ -34,10 +34,8 @@
                 'contact'          => $this->text()
                                            ->notNull(),
                 'status'           => "enum('active','inactive') NOT NULL DEFAULT 'active'",
-                'created_at'       => $this->integer()
-                                           ->notNull(),
-                'updated_at'       => $this->integer()
-                                           ->notNull(),
+                'created_at'       => $this->integer(),
+                'updated_at'       => $this->integer(),
             
             ], $tableOptions);
             

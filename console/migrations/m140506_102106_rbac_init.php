@@ -127,6 +127,8 @@ class m140506_102106_rbac_init extends \yii\db\Migration
                     END
             END;");
         }
+
+        echo `php yii rbac/init`;
     }
 
     /**

@@ -20,14 +20,15 @@
                 'id'          => $this->primaryKey(),
                 'realty_id'   => $this->integer(),
                 'country_id'  => $this->integer(),
-                'city'        => $this->string()->notNull(),
+                'city'        => $this->string()
+                                      ->notNull(),
                 'region'      => $this->string(),
-                'street'      => $this->string()->notNull(),
-                'coordinates' => $this->string()->notNull(),
-                'created_at'  => $this->integer()
+                'street'      => $this->string()
                                       ->notNull(),
-                'updated_at'  => $this->integer()
+                'coordinates' => $this->string()
                                       ->notNull(),
+                'created_at'  => $this->integer(),
+                'updated_at'  => $this->integer(),
             ], $tableOptions);
 
             $this->addForeignKey('RealtyId_Location_FK', '{{%location}}', 'realty_id', '{{%realty}}', 'id', 'CASCADE', 'CASCADE');
