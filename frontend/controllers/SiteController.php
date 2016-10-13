@@ -72,6 +72,7 @@
          * @return mixed
          */
         public function actionIndex(){
+            //todo landing page
             return $this->render('index');
         }
         

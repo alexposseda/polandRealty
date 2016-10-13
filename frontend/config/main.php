@@ -36,14 +36,13 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
             'rules' => [
+                '<controller:(realt)>ies' => 'realty/index',
+                '<controller:(realt)>y/<id:\d+>' => 'realty/view',
+                '<controller:(realt)>y/<action:update|delete>/<id:\d+>' => 'realty/<action>'
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

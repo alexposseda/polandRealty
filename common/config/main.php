@@ -13,8 +13,6 @@
             'urlManager'  => [
                 'class'     => 'codemix\localeurls\UrlManager',
                 'showScriptName' => false,
-                'rules' => [
-                ],
                 'languages' => [
                     'en',
                     'pl'
