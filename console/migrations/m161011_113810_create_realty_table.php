@@ -21,14 +21,19 @@
                 'ad_type_id'       => $this->integer(),
                 'property_type_id' => $this->integer(),
                 'building_type_id' => $this->integer(),
-                'price'            => $this->float()->notNull(),
+                'created_by'       => $this->integer(),
+                'price'            => $this->float()
+                                           ->notNull(),
                 'area'             => $this->float(),
                 'floors_count'     => $this->integer(),
                 'floor'            => $this->integer(),
                 'rooms_count'      => $this->integer(),
                 'gallery'          => $this->text(),
-                'description'      => $this->text()->notNull(),
-                'contact'          => $this->text()->notNull(),
+                'description'      => $this->text()
+                                           ->notNull(),
+                'contact'          => $this->text()
+                                           ->notNull(),
+                'status'           => "enum('active','inactive') NOT NULL DEFAULT 'active'",
                 'created_at'       => $this->integer()
                                            ->notNull(),
                 'updated_at'       => $this->integer()
@@ -39,6 +44,7 @@
             $this->addForeignKey('AdType_FK', '{{%realty}}', 'ad_type_id', '{{%ad_type}}', 'id', 'SET NULL', 'CASCADE');
             $this->addForeignKey('PropertyType_FK', '{{%realty}}', 'property_type_id', '{{%property_type}}', 'id', 'SET NULL', 'CASCADE');
             $this->addForeignKey('BuildingType_FK', '{{%realty}}', 'building_type_id', '{{%building_type}}', 'id', 'SET NULL', 'CASCADE');
+            $this->addForeignKey('Creator_FK', '{{%realty}}', 'created_by', '{{%user}}', 'id', 'SET NULL', 'CASCADE');
         }
         
         /**
@@ -48,6 +54,7 @@
             $this->dropForeignKey('AdType_FK', '{{%realty}}');
             $this->dropForeignKey('PropertyType_FK', '{{%realty}}');
             $this->dropForeignKey('BuildingType_FK', '{{%realty}}');
+            $this->dropForeignKey('Creator_FK', '{{%realty}}');
             $this->dropTable('{{%realty}}');
         }
     }

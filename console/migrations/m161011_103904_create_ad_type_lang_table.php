@@ -1,7 +1,7 @@
 <?php
-
+    
     use yii\db\Migration;
-
+    
     /**
      * Handles the creation for table `ad_type_lang`.
      */
@@ -18,22 +18,23 @@
             $this->createTable('{{%ad_type_lang}}', [
                 'id'         => $this->primaryKey(),
                 'ad_type_id' => $this->integer(),
-                'lang'       => $this->string(4),
+                'language'   => $this->integer(),
                 'title'      => $this->string(),
                 'created_at' => $this->integer()
                                      ->notNull(),
                 'updated_at' => $this->integer()
                                      ->notNull(),
             ], $tableOptions);
-            $this->createIndex('AdTypeLangCode', '{{%ad_type_lang}}', 'lang');
             $this->addForeignKey('AdTypeLang_FK', '{{%ad_type_lang}}', 'ad_type_id', '{{%ad_type}}', 'id', 'CASCADE', 'CASCADE');
+            $this->addForeignKey('LangCode_adtype_FK', '{{%ad_type_lang}}', 'language', '{{%language}}', 'id', 'CASCADE', 'CASCADE');
         }
-
+        
         /**
          * @inheritdoc
          */
         public function down(){
             $this->dropForeignKey('AdTypeLang_FK', '{{%ad_type_lang}}');
+            $this->dropForeignKey('LangCode_adtype_FK', '{{%ad_type_lang}}');
             $this->dropTable('{{%ad_type_lang}}');
         }
     }

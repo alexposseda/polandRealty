@@ -1,7 +1,7 @@
 <?php
-
+    
     use yii\db\Migration;
-
+    
     /**
      * Handles the creation for table `property_type_lang`.
      */
@@ -18,24 +18,25 @@
             $this->createTable('{{%property_type_lang}}', [
                 'id'               => $this->primaryKey(),
                 'property_type_id' => $this->integer(),
-                'lang'             => $this->string(4),
+                'language'         => $this->integer(),
                 'title'            => $this->string(),
                 'created_at'       => $this->integer()
                                            ->notNull(),
                 'updated_at'       => $this->integer()
                                            ->notNull(),
-
+            
             ], $tableOptions);
-
-            $this->createIndex('PropertyTypeLangCode', '{{%property_type_lang}}', 'lang');
+            
             $this->addForeignKey('PropertyTypeLang_FK', '{{%property_type_lang}}', 'property_type_id', '{{%property_type}}', 'id', 'CASCADE', 'CASCADE');
+            $this->addForeignKey('LangCode_propertytype_FK', '{{%property_type_lang}}', 'language', '{{%language}}', 'id', 'CASCADE', 'CASCADE');
         }
-
+        
         /**
          * @inheritdoc
          */
         public function down(){
             $this->dropForeignKey('PropertyTypeLang_FK', '{{%property_type_lang}}');
+            $this->dropForeignKey('LangCode_propertytype_FK', '{{%property_type_lang}}');
             $this->dropTable('{{%property_type_lang}}');
         }
     }

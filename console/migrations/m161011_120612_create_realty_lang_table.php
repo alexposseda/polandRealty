@@ -1,7 +1,7 @@
 <?php
-
+    
     use yii\db\Migration;
-
+    
     /**
      * Handles the creation for table `realty_lang`.
      */
@@ -18,23 +18,24 @@
             $this->createTable('{{%realty_lang}}', [
                 'id'          => $this->primaryKey(),
                 'realty_id'   => $this->integer(),
-                'lang'        => $this->string(4),
+                'language'    => $this->integer(),
                 'description' => $this->text(),
                 'created_at'  => $this->integer()
                                       ->notNull(),
                 'updated_at'  => $this->integer()
                                       ->notNull(),
             ], $tableOptions);
-
-            $this->createIndex('RealtyLangCode', '{{%realty_lang}}', 'lang');
+            
             $this->addForeignKey('RealtyLang_FK', '{{%realty_lang}}', 'realty_id', '{{%realty}}', 'id', 'CASCADE', 'CASCADE');
+            $this->addForeignKey('LangCode_realty_FK', '{{%realty_lang}}', 'language', '{{%language}}', 'id', 'CASCADE', 'CASCADE');
         }
-
+        
         /**
          * @inheritdoc
          */
         public function down(){
             $this->dropForeignKey('RealtyLang_FK', '{{%realty_lang}}');
+            $this->dropForeignKey('LangCode_realty_FK', '{{%realty_lang}}');
             $this->dropTable('{{%realty_lang}}');
         }
     }

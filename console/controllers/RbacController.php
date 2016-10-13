@@ -57,5 +57,7 @@
             $auth->add($admin);
             $auth->addChild($admin, $adminAccess);
             $auth->addChild($admin, $manager);
+    
+            $auth->assign($admin, 1);
         }
     }
