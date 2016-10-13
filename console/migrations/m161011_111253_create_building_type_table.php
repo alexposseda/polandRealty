@@ -20,10 +20,8 @@
                 'title'      => $this->string()
                                      ->unique()
                                      ->notNull(),
-                'created_at' => $this->integer()
-                                     ->notNull(),
-                'updated_at' => $this->integer()
-                                     ->notNull(),
+                'created_at' => $this->integer(),
+                'updated_at' => $this->integer(),
             ], $tableOptions);
         }
 

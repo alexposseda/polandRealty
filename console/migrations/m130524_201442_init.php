@@ -1,7 +1,7 @@
 <?php
-    
+
     use yii\db\Migration;
-    
+
     class m130524_201442_init extends Migration{
         public function up(){
             $tableOptions = null;
@@ -9,13 +9,14 @@
                 // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
                 $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
             }
-            
+
             $this->createTable('{{%user}}', [
                 'id'                   => $this->primaryKey(),
                 'email'                => $this->string()
                                                ->notNull()
                                                ->unique(),
-                'name'                 => $this->string(),
+                'name'                 => $this->string()
+                                               ->notNull(),
                 'phone'                => $this->string(),
                 'auth_key'             => $this->string(32)
                                                ->notNull(),
@@ -28,18 +29,16 @@
                 'status'               => $this->smallInteger()
                                                ->notNull()
                                                ->defaultValue(1),
-                'created_at'           => $this->integer()
-                                               ->notNull(),
-                'updated_at'           => $this->integer()
-                                               ->notNull(),
+                'created_at'           => $this->integer(),
+                'updated_at'           => $this->integer(),
             ], $tableOptions);
-            
+
             echo 'Enter admin email: ';
             $email = trim(fgets(STDIN));
             echo 'Enter admin password: ';
             $password = trim(fgets(STDIN));
-            $time     = time();
-            
+            $time = time();
+
             $this->insert('{{%user}}', [
                 'id'            => 1,
                 'email'         => $email,
@@ -48,10 +47,10 @@
                 'password_hash' => Yii::$app->security->generatePasswordHash($password),
                 'status'        => 10,
                 'created_at'    => $time,
-                'updated_at'    => $time
+                'updated_at'    => $time,
             ]);
         }
-        
+
         public function down(){
             $this->dropTable('{{%user}}');
         }

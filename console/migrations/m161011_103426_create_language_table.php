@@ -19,10 +19,8 @@
                 'id'         => $this->primaryKey(),
                 'code'       => $this->string(4)->notNull()->unique(),
                 'title'      => $this->string(20)->notNull()->unique(),
-                'created_at' => $this->integer()
-                                     ->notNull(),
-                'updated_at' => $this->integer()
-                                     ->notNull(),
+                'created_at' => $this->integer(),
+                'updated_at' => $this->integer(),
             ], $tableOptions);
 
             $createdTime = time();

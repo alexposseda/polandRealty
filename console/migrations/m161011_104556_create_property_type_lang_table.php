@@ -20,10 +20,8 @@
                 'property_type_id' => $this->integer(),
                 'language'         => $this->integer(),
                 'title'            => $this->string(),
-                'created_at'       => $this->integer()
-                                           ->notNull(),
-                'updated_at'       => $this->integer()
-                                           ->notNull(),
+                'created_at'       => $this->integer(),
+                'updated_at'       => $this->integer(),
             
             ], $tableOptions);
             

@@ -20,10 +20,8 @@
                 'realty_id'   => $this->integer(),
                 'language'    => $this->integer(),
                 'description' => $this->text(),
-                'created_at'  => $this->integer()
-                                      ->notNull(),
-                'updated_at'  => $this->integer()
-                                      ->notNull(),
+                'created_at'  => $this->integer(),
+                'updated_at'  => $this->integer(),
             ], $tableOptions);
             
             $this->addForeignKey('RealtyLang_FK', '{{%realty_lang}}', 'realty_id', '{{%realty}}', 'id', 'CASCADE', 'CASCADE');
