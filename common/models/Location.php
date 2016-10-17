@@ -88,4 +88,25 @@ class Location extends ActiveRecord
     {
         return $this->hasOne(Realty::className(), ['id' => 'realty_id']);
     }
+
+    public function getAttrib($name = 'full'){
+
+        $attr = [
+            'full'   => [
+                'realty_id',
+                'country.name',
+                'city',
+                'region',
+                'street',
+                'coordinates',
+                'created_at:datetime',
+                'updated_at:datetime',
+            ],
+            'create' => [
+            ],
+        ];
+
+        return $attr[$name];
+    }
+
 }

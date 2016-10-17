@@ -9,11 +9,11 @@
     use yii\helpers\ArrayHelper;
 
 ?>
-
-<?php $form = ActiveForm::begin(); ?>
-<?php if($model->formName() == 'Realty'): ?>
-    <?= $this->render('realty/form', ['form' => $form, 'model' => $model]) ?>
+<?php if($model->formName() == 'RealtyForm'): ?>
+    <?= $this->render('realty/form', ['model' => $model]) ?>
 <?php else: ?>
+    <?php $form = ActiveForm::begin(); ?>
+
     <?php foreach($model::getAttrib('create') as $attr): ?>
         <?php if($attr == 'country_id'): ?>
             <?php $country = ArrayHelper::map(Country::find()
@@ -26,6 +26,7 @@
 
         <?= $form->field($model, $attr) ?>
     <?php endforeach; ?>
+    <?= Html::submitButton('Save') ?>
+    <?php ActiveForm::end(); ?>
+
 <?php endif; ?>
-<?= Html::submitButton('Save') ?>
-<?php ActiveForm::end(); ?>

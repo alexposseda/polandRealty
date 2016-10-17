@@ -41,8 +41,8 @@
             if(Yii::$app->user->can('adminAccess')){
                 $menuItems = array_merge($menuItems, [
                     ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'User', 'url' => ['/type/user']],
-                    ['label' => 'Realty', 'url' => ['/type/realty']],
+                    ['label' => 'User', 'url' => ['/type/index','nameModel'=>'user']],
+                    ['label' => 'Realty', 'url' => ['/type/index','nameModel'=>'realty']],
                     ['label' => 'PostalCode', 'url' => ['/type/postalCode']],
                     ['label' => 'AdType', 'url' => ['/type/adType']],
                     ['label' => 'BuildingType', 'url' => ['/type/buildingType']],

@@ -3,9 +3,14 @@
     namespace backend\controllers;
 
     use backend\models\RealtyGallery;
+    use common\models\forms\ContactForm;
+    use common\models\forms\RealtyForm;
+    use common\models\Location;
+    use common\models\Realty;
     use Yii;
     use yii\alexposseda\fileManager\actions\RemoveAction;
     use yii\alexposseda\fileManager\actions\UploadAction;
+    use yii\base\Model;
     use yii\bootstrap\Html;
     use yii\data\ActiveDataProvider;
     use yii\db\ActiveRecord;
@@ -52,11 +57,11 @@
                     'uploadPath'    => 'realty',
                     'sessionEnable' => true,
                     'uploadModel'   => new RealtyGallery([
-                                                            'validationRules' => [
-                                                                'extensions' => 'jpg, png',
-                                                                'maxSize'    => 1024 * 1024 * 2,
-                                                            ],
-                                                        ]),
+                                                             'validationRules' => [
+                                                                 'extensions' => 'jpg, png',
+                                                                 'maxSize'    => 1024 * 1024 * 2,
+                                                             ],
+                                                         ]),
                 ],
                 'realty-remove' => [
                     'class' => RemoveAction::className(),
@@ -98,6 +103,12 @@
 
             /** @var ActiveRecord $model */
             $model = new $mod();
+            if($nameModel == 'realty'){
+                $model = new RealtyForm($model);
+                if($model->load() && $model->save()){
+                    return $this->redirect([$nameModel]);
+                }
+            }
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
                 return $this->redirect([$nameModel]);
@@ -113,6 +124,13 @@
             $model = $mod::findOne($id);
             if(!$model){
                 throw new NotFoundHttpException('The requested page does not exist.');
+            }
+
+            if($nameModel == 'realty'){
+                $model = new RealtyForm($model);
+                if($model->load() && $model->save()){
+                    return $this->redirect([$nameModel]);
+                }
             }
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
@@ -135,6 +153,6 @@
             if(class_exists('common\models\\'.ucfirst($nameModel))){
                 return 'common\models\\'.ucfirst($nameModel);
             }
-            throw new NotFoundHttpException('The requested page does not exist.');
+            throw new NotFoundHttpException('The requested class does not exist.');
         }
     }

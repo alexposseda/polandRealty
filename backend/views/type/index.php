@@ -13,6 +13,7 @@
     $this->title = ucfirst($nameModel);
 ?>
 <div>
-    <?= Html::a('Create', ['type/'.$nameModel.'/create'], ['class' => 'btn btn-primary']) ?>
+    <!--    --><? //= Html::a('Create', ['type/'.$nameModel.'/create'], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Create', ['type/create', 'nameModel' => $nameModel], ['class' => 'btn btn-primary']) ?>
 </div>
 <?= GridView::widget(['dataProvider' => $dataProvider, 'columns' => $columns,]) ?>

@@ -1,14 +1,16 @@
 <?php
     /**
      * @var $form  \yii\bootstrap\ActiveForm
-     * @var $model \common\models\Realty
+     * @var $model \common\models\RealtyForm
      * @var $attr  string
      */
-    use common\models\forms\ContactForm;
+    use common\widgets\MapWidget\FormMapWidget;
+    use common\models\Country;
     use common\widgets\FileManagerWidget\FileManagerWidget;
     use common\models\AdType;
     use common\models\BuildingType;
     use common\models\PropertyType;
+    use yii\bootstrap\ActiveForm;
     use yii\bootstrap\Html;
     use yii\helpers\ArrayHelper;
     use yii\helpers\Url;
@@ -22,52 +24,96 @@
     $btype = ArrayHelper::map(BuildingType::find()
                                           ->select(['id', 'title'])
                                           ->all(), 'id', 'title');
-    $contact = new ContactForm();
-    if(!$model->isNewRecord){
-        $tmp = json_decode($model->contact);
-        $contact->attributes = $tmp;
-    }
-?>
-    <div class="row">
-        <div class="col-lg-4"> <?= $form->field($model, 'ad_type_id')
-                                        ->dropDownList($adtype, ['prompt' => 'Select adType']) ?>
-        </div>
-        <div class="col-lg-4"><?= $form->field($model, 'property_type_id')
-                                       ->dropDownList($ptype, ['prompt' => 'Select Property type']) ?>
-        </div>
-        <div class="col-lg-4"><?= $form->field($model, 'building_type_id')
-                                       ->dropDownList($btype, ['prompt' => 'Select Building type']) ?>
-        </div>
 
-        <div class="col-lg-3"><?= $form->field($model, 'price') ?></div>
-        <div class="col-lg-3"><?= $form->field($model, 'area') ?></div>
-        <div class="col-lg-2"><?= $form->field($model, 'floors_count') ?></div>
-        <div class="col-lg-2"><?= $form->field($model, 'floor') ?></div>
-        <div class="col-lg-2"><?= $form->field($model, 'rooms_count') ?></div>
-        <div class="col-lg-12"><?= $form->field($model, 'description')
-                                        ->textarea() ?></div>
+    if($model->realty->isNewRecord){
+        $centerMap = Yii::$app->params['mapConfig']['center'];
+        $zoom = Yii::$app->params['mapConfig']['zoom'];
+    }else{
+        $coord = explode(';', $model->location->coordinates);
+        $centerMap = [
+            'lat' => $coord[0] * 1,
+            'lng' => $coord[1] * 1
+        ];
+        $zoom = 18;
+    }
+
+?>
+<?php $form = ActiveForm::begin() ?>
+<div class="row">
+    <div class="col-lg-4"> <?= $form->field($model->realty, 'ad_type_id')
+                                    ->dropDownList($adtype, ['prompt' => 'Select adType']) ?>
+    </div>
+    <div class="col-lg-4"><?= $form->field($model->realty, 'property_type_id')
+                                   ->dropDownList($ptype, ['prompt' => 'Select Property type']) ?>
+    </div>
+    <div class="col-lg-4"><?= $form->field($model->realty, 'building_type_id')
+                                   ->dropDownList($btype, ['prompt' => 'Select Building type']) ?>
     </div>
 
-    <div class="row contact">
-        <div class="col-lg-6">
-            <div class="panel panel-danger">
-                <span class="page-header">Contact</span>
-                <div class="row panel-body">
-                    <div class="col-lg-4"><?= $form->field($contact, 'name') ?></div>
-                    <div class="col-lg-4"><?= $form->field($contact, 'phone') ?></div>
-                    <div class="col-lg-4"><?= $form->field($contact, 'email') ?></div>
+    <div class="col-lg-3"><?= $form->field($model->realty, 'price') ?></div>
+    <div class="col-lg-3"><?= $form->field($model->realty, 'area') ?></div>
+    <div class="col-lg-2"><?= $form->field($model->realty, 'floors_count') ?></div>
+    <div class="col-lg-2"><?= $form->field($model->realty, 'floor') ?></div>
+    <div class="col-lg-2"><?= $form->field($model->realty, 'rooms_count') ?></div>
+    <div class="col-lg-12"><?= $form->field($model->realty, 'description')
+                                    ->textarea() ?></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 contact">
+        <div class="panel panel-danger">
+            <span class="page-header">Contact</span>
+            <div class="panel-body">
+                <div class=""><?= $form->field($model->contact, 'name') ?></div>
+                <div class=""><?= $form->field($model->contact, 'phone') ?></div>
+                <div class=""><?= $form->field($model->contact, 'email') ?></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 location">
+        <div class="panel panel-default">
+            <span class="page-header">Location</span>
+            <div class="panel-body">
+                <div class="row">
+                    <?php $country = ArrayHelper::map(Country::find()
+                                                             ->select(['id', 'name'])
+                                                             ->all(), 'id', 'name'); ?>
+                    <div class="col-lg-12"> <?= $form->field($model->location, 'country_id')
+                                                     ->dropDownList($country, ['prompt' => 'Select country']) ?></div>
+                    <div class="col-lg-6"><?= $form->field($model->location, 'city') ?></div>
+                    <div class="col-lg-6"><?= $form->field($model->location, 'region') ?></div>
+                    <div class="col-lg-12"><?= $form->field($model->location, 'street') ?></div>
+                    <div class="col-lg-12"><?= $form->field($model->location, 'coordinates') ?></div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-lg-4 map">
+        <div class="map ">
+            <div class="panel panel-danger" style="height: 452px">
+                <?= FormMapWidget::widget([
 
+                                              'mapSetting' => [
+                                                  'center'       => $centerMap,
+                                                  'zoom'         => $zoom,
+                                                  'draggable'    => true,
+                                                  'addressInpId' => 'location-street',
+                                                  'coordInpId'   => 'location-coordinates'
+                                              ]
+                                          ]) ?>
+            </div>
+        </div>
+    </div>
+</div>
 
-<?= Html::activeHiddenInput($model, 'gallery', ['id' => 'gallery']) ?>
+<?= Html::activeHiddenInput($model->realty, 'gallery', ['id' => 'gallery']) ?>
 <?= FileManagerWidget::widget([
                                   'uploadUrl'     => Url::to('/type/realty-upload'),
                                   'removeUrl'     => Url::to('/type/realty-remove'),
-                                  'files'         => ($model->isNewRecord) ? '' : $model->gallery,
+                                  'files'         => ($model->realty->isNewRecord) ? '' : $model->realty->gallery,
                                   'targetInputId' => 'gallery',
                                   'maxFiles'      => 10,
                                   'title'         => 'Gallery',
                               ]) ?>
+<?= Html::submitButton('save') ?>
+<?php ActiveForm::end() ?>

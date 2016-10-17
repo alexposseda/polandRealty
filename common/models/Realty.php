@@ -2,7 +2,9 @@
 
     namespace common\models;
 
+    use common\models\forms\ContactForm;
     use Yii;
+    use yii\base\InvalidValueException;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
 
@@ -81,6 +83,7 @@
                     'targetAttribute' => ['building_type_id' => 'id'],
                 ],
                 [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+                ['created_by', 'default', 'value' => Yii::$app->user->identity->id],
                 [
                     ['property_type_id'],
                     'exist',
@@ -96,22 +99,26 @@
          */
         public function attributeLabels(){
             return [
-                'id'               => 'ID',
-                'ad_type_id'       => 'Ad Type ID',
-                'property_type_id' => 'Property Type ID',
-                'building_type_id' => 'Building Type ID',
-                'created_by'       => 'Created By',
-                'price'            => 'Price',
-                'area'             => 'Area',
-                'floors_count'     => 'Floors Count',
-                'floor'            => 'Floor',
-                'rooms_count'      => 'Rooms Count',
-                'gallery'          => 'Gallery',
-                'description'      => 'Description',
-                'contact'          => 'Contact',
-                'status'           => 'Status',
-                'created_at'       => 'Created At',
-                'updated_at'       => 'Updated At',
+                'id'                 => 'ID',
+                'ad_type_id'         => 'Ad Type ID',
+                'adType.title'       => 'Ad Type',
+                'property_type_id'   => 'Property Type ID',
+                'propertyType.title' => 'Property Type',
+                'building_type_id'   => 'Building Type ID',
+                'buildingType.title' => 'Building Type',
+                'created_by'         => 'Created By',
+                'createdBy.name'     => 'Created By',
+                'price'              => 'Price',
+                'area'               => 'Area',
+                'floors_count'       => 'Floors Count',
+                'floor'              => 'Floor',
+                'rooms_count'        => 'Rooms Count',
+                'gallery'            => 'Gallery',
+                'description'        => 'Description',
+                'contact'            => 'Contact',
+                'status'             => 'Status',
+                'created_at'         => 'Created At',
+                'updated_at'         => 'Updated At',
             ];
         }
 
@@ -162,8 +169,8 @@
             $attr = [
                 'full'   => [
                     'adType.title',
-                    'property.title',
-                    'building.title',
+                    'propertyType.title',
+                    'buildingType.title',
                     'createdBy.name',
                     'price',
                     'area',
@@ -191,4 +198,6 @@
 
             return $attr[$name];
         }
+
+
     }
