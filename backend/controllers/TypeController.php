@@ -7,6 +7,7 @@
     use common\models\forms\RealtyForm;
     use common\models\Location;
     use common\models\Realty;
+    use common\models\search\RealtySearch;
     use Yii;
     use yii\alexposseda\fileManager\actions\RemoveAction;
     use yii\alexposseda\fileManager\actions\UploadAction;
@@ -95,7 +96,19 @@
             ];
             array_splice($columns, 1, 0, $mod::getAttrib('full'));
 
-            return $this->render('index', ['dataProvider' => $dataProvider, 'nameModel' => $nameModel, 'columns' => $columns]);
+            $filterModel = null;
+            if($nameModel == 'realty'){
+                $filterModel = new RealtySearch();
+
+                $dataProvider = $filterModel->search(Yii::$app->request->queryParams);
+            }
+
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+                'filterModel'  => $filterModel,
+                'nameModel'    => $nameModel,
+                'columns'      => $columns
+            ]);
         }
 
         public function actionCreate($nameModel){

@@ -28,7 +28,7 @@
      * @property integer      $created_at
      * @property integer      $updated_at
      *
-     * @property Location[]   $locations
+     * @property Location   $location
      * @property AdType       $adType
      * @property BuildingType $buildingType
      * @property User         $createdBy
@@ -125,8 +125,8 @@
         /**
          * @return \yii\db\ActiveQuery
          */
-        public function getLocations(){
-            return $this->hasMany(Location::className(), ['realty_id' => 'id']);
+        public function getLocation(){
+            return $this->hasOne(Location::className(), ['realty_id' => 'id']);
         }
 
         /**
