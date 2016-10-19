@@ -123,7 +123,12 @@
                     'email',
                     'name',
                     'phone',
-                    'status',
+                    [
+                        'attribute' => 'status',
+                        'content'   => function($model){
+                            return Yii::t('data', $model->status);
+                        },
+                    ],
                     'created_at:datetime',
                     'updated_at:datetime',
                 ],

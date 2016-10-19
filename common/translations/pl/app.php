@@ -3,10 +3,11 @@
         //link
         'Home'          => 'Home_PL',
         'Logout'        => 'Logout_PL',
-        'Login'        => 'Login_PL',
+        'Login'         => 'Login_PL',
         'Create'        => 'Create_PL',
         'Update'        => 'Update_PL',
         'Delete'        => 'Delete_PL',
+        'Select'        => 'Select_PL',
         //column
         'Email'         => 'Email_PL',
         'Name'          => 'Name_PL',
@@ -37,6 +38,11 @@
         'Gallery'       => 'Gallery_PL',
         'Contact'       => 'Contact_PL',
         'Language'      => 'Language_PL',
+        'Price From'    => 'Price From_PL',
+        'Price To'      => 'Price To_PL',
+        'Area From'     => 'Area From_PL',
+        'Area To'       => 'Area To_PL',
+
         //table
         'PostalCode'    => 'PostalCode_PL',
         'AdType'        => 'AdType_PL',

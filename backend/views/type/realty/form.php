@@ -1,9 +1,11 @@
 <?php
     /**
+     * @var $this  \yii\web\View
      * @var $form  \yii\bootstrap\ActiveForm
-     * @var $model \common\models\RealtyForm
+     * @var $model \common\models\forms\RealtyForm
      * @var $attr  string
      */
+    use common\assets\RealtyFormAsset;
     use common\widgets\MapWidget\FormMapWidget;
     use common\models\Country;
     use common\widgets\FileManagerWidget\FileManagerWidget;
@@ -14,6 +16,7 @@
     use yii\bootstrap\Html;
     use yii\helpers\ArrayHelper;
     use yii\helpers\Url;
+    use yii\web\View;
 
     $adtype = ArrayHelper::map(AdType::find()
                                      ->select(['id', 'title'])
@@ -36,6 +39,15 @@
         ];
         $zoom = 18;
     }
+
+    RealtyFormAsset::register($this);
+    $postalUrl = Url::to(['/ajax-query/get-postal'],true);
+    $postalData = Url::to(['/ajax-query/get-postal-data'],true);
+    $js = <<<JS
+var postalUrl='{$postalUrl}';
+var postalData='{$postalData}';
+JS;
+    $this->registerJs($js, View::POS_END);
 
 ?>
 <?php $form = ActiveForm::begin() ?>
@@ -79,7 +91,8 @@
                                                              ->select(['id', 'name'])
                                                              ->all(), 'id', 'name'); ?>
                     <div class="col-lg-12"> <?= $form->field($model->location, 'country_id')
-                                                     ->dropDownList($country, ['prompt' => 'Select country']) ?></div>
+                                                     ->dropDownList($country,
+                                                                    ['prompt' => Yii::t('app', 'Select').' '.Yii::t('app', 'Country')]) ?></div>
                     <div class="col-lg-6"><?= $form->field($model->location, 'city') ?></div>
                     <div class="col-lg-6"><?= $form->field($model->location, 'region') ?></div>
                     <div class="col-lg-12"><?= $form->field($model->location, 'street') ?></div>

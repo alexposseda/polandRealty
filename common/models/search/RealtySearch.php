@@ -3,10 +3,18 @@
     namespace common\models\search;
 
     use common\models\Realty;
+    use Yii;
     use yii\data\ActiveDataProvider;
 
     class RealtySearch extends Realty{
         public $name;
+        public $priceFrom;
+        public $priceTo;
+        public $areaFrom;
+        public $areaTo;
+        public $cityName;
+        public $countryName;
+        public $postalCode;
 
         public function getInterval($attribute){
             $query = Realty::find();
@@ -17,7 +25,16 @@
 
             return [
                 'min' => $minProp,
-                'max' => $maxProp
+                'max' => $maxProp,
+            ];
+        }
+
+        public function attributeLabels(){
+            return [
+                'priceFrom' => Yii::t('app', 'Price From'),
+                'priceTo'   => Yii::t('app', 'Price To'),
+                'areaFrom'  => Yii::t('app', 'Area From'),
+                'areaTo'    => Yii::t('app', 'Area To'),
             ];
         }
 
@@ -35,7 +52,7 @@
             $dataProvider = new ActiveDataProvider([
                                                        'query'      => $query,
                                                        'pagination' => [
-                                                           'pageSize' => 9
+                                                           'pageSize' => 9,
                                                        ],
                                                    ]);
             $this->load($params);
@@ -56,8 +73,9 @@
                   ->andFilterWhere(['between', 'price', $price[0], $price[1]]);
 
             $query->andFilterWhere(['like', 'location.region', $this->location->region])
-                  ->andFilterWhere(['like', 'location.city', $this->location->city])
-                  ->andFilterWhere(['like', 'location.country.name', $this->location->country->name]);
+                  ->andFilterWhere(['like', 'location.city', $this->cityName])
+                  ->andFilterWhere(['like', 'location.country.postalCodes.code', $this->postalCode])
+                  ->andFilterWhere(['like', 'location.country.name', $this->countryName]);
 
             return $dataProvider;
         }

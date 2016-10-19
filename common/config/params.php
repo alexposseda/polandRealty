@@ -6,7 +6,7 @@ return [
     'user.emailConfirmTokenExpire' => 3600,
     'mapConfig'=>[
         'center' => [
-            'lat'=> 56.12163457, 'lng' => 37.15833664
+            'lat'=> 51.919438, 'lng' => 19.145136
         ],
         'zoom' => 9
     ],

@@ -29,7 +29,7 @@
      * @property integer      $created_at
      * @property integer      $updated_at
      *
-     * @property Location   $location
+     * @property Location     $location
      * @property AdType       $adType
      * @property BuildingType $buildingType
      * @property User         $createdBy
@@ -169,6 +169,7 @@
 
             $attr = [
                 'full'   => [
+                    'location.country.postalCodes.code',
                     'adType.title',
                     'propertyType.title',
                     'buildingType.title',
@@ -178,9 +179,14 @@
                     'floors_count',
                     'floor',
                     'rooms_count',
-                    'status',
-//                    'created_at:datetime',
-//                    'updated_at:datetime',
+                    [
+                        'attribute' => 'status',
+                        'content'   => function($model){
+                            return Yii::t('data', $model->status);
+                        },
+                    ],
+                    //                    'created_at:datetime',
+                    //                    'updated_at:datetime',
                 ],
                 'create' => [
                     'ad_type_id',

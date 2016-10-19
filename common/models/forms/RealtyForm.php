@@ -12,6 +12,7 @@
         public $realty;
         public $contact;
         public $location;
+        public $postalCode;
 
         public function __construct(Realty $realty){
             $this->realty = $realty;
