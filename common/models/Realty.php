@@ -4,6 +4,7 @@
 
     use common\models\forms\ContactForm;
     use Yii;
+    use yii\alexposseda\fileManager\FileManager;
     use yii\base\InvalidValueException;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
@@ -100,25 +101,25 @@
         public function attributeLabels(){
             return [
                 'id'                 => 'ID',
-                'ad_type_id'         => 'Ad Type ID',
-                'adType.title'       => 'Ad Type',
-                'property_type_id'   => 'Property Type ID',
-                'propertyType.title' => 'Property Type',
-                'building_type_id'   => 'Building Type ID',
-                'buildingType.title' => 'Building Type',
-                'created_by'         => 'Created By',
-                'createdBy.name'     => 'Created By',
-                'price'              => 'Price',
-                'area'               => 'Area',
-                'floors_count'       => 'Floors Count',
-                'floor'              => 'Floor',
-                'rooms_count'        => 'Rooms Count',
-                'gallery'            => 'Gallery',
-                'description'        => 'Description',
-                'contact'            => 'Contact',
-                'status'             => 'Status',
-                'created_at'         => 'Created At',
-                'updated_at'         => 'Updated At',
+                'ad_type_id'         => Yii::t('app', 'Ad Type'),
+                'adType.title'       => Yii::t('app', 'Ad Type'),
+                'property_type_id'   => Yii::t('app', 'Property Type'),
+                'propertyType.title' => Yii::t('app', 'Property Type'),
+                'building_type_id'   => Yii::t('app', 'Building Type'),
+                'buildingType.title' => Yii::t('app', 'Building Type'),
+                'created_by'         => Yii::t('app', 'Created By'),
+                'createdBy.name'     => Yii::t('app', 'Created By'),
+                'price'              => Yii::t('app', 'Price'),
+                'area'               => Yii::t('app', 'Area'),
+                'floors_count'       => Yii::t('app', 'Floors Count'),
+                'floor'              => Yii::t('app', 'Floor'),
+                'rooms_count'        => Yii::t('app', 'Rooms Count'),
+                'gallery'            => Yii::t('app', 'Gallery'),
+                'description'        => Yii::t('app', 'Description'),
+                'contact'            => Yii::t('app', 'Contact'),
+                'status'             => Yii::t('app', 'Status'),
+                'created_at'         => Yii::t('app', 'Created At'),
+                'updated_at'         => Yii::t('app', 'Updated At'),
             ];
         }
 
@@ -178,8 +179,8 @@
                     'floor',
                     'rooms_count',
                     'status',
-                    'created_at:datetime',
-                    'updated_at:datetime',
+//                    'created_at:datetime',
+//                    'updated_at:datetime',
                 ],
                 'create' => [
                     'ad_type_id',
@@ -199,5 +200,15 @@
             return $attr[$name];
         }
 
+        public function afterSave(){
+            $gallery = json_decode($this->gallery);
+
+            if(!empty($gallery)){
+                foreach($gallery as $pic){
+                    FileManager::getInstance()
+                               ->removeFile($pic);
+                }
+            }
+        }
 
     }

@@ -26,7 +26,8 @@
 
         <?= $form->field($model, $attr) ?>
     <?php endforeach; ?>
-    <?= Html::submitButton('Save') ?>
+    <?= Html::submitButton(($model->isNewRecord) ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+                           ['class' => 'btn '.(($model->isNewRecord) ? 'btn-primary' : 'btn-warning')]) ?>
     <?php ActiveForm::end(); ?>
 
 <?php endif; ?>

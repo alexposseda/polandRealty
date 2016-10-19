@@ -86,9 +86,9 @@
                 ['class' => SerialColumn::className()],
                 [
                     'content' => function($model) use ($nameModel){
-                        $res = Html::a('Update', ['type/'.$nameModel.'/update/'.$model->id], ['class' => 'btn btn-info']);
+                        $res = Html::a(Yii::t('app', 'Update'), ['type/'.$nameModel.'/update/'.$model->id], ['class' => 'btn btn-info']);
                         $res .= ' ';
-                        $res .= Html::a('Delete', ['type/'.$nameModel.'/delete/'.$model->id], ['class' => 'btn btn-danger']);
+                        $res .= Html::a(Yii::t('app', 'Delete'), ['type/'.$nameModel.'/delete/'.$model->id], ['class' => 'btn btn-danger']);
 
                         return $res;
                     },
@@ -107,7 +107,7 @@
                 'dataProvider' => $dataProvider,
                 'filterModel'  => $filterModel,
                 'nameModel'    => $nameModel,
-                'columns'      => $columns
+                'columns'      => $columns,
             ]);
         }
 

@@ -15,19 +15,24 @@
                 ['name', 'required'],
                 ['email', 'email'],
                 [['name', 'phone', 'email'], 'string'],
-//                ['name', 'default', 'value' => Yii::$app->user->identity->name],
-//                ['phone', 'default', 'value' => Yii::$app->user->identity->phone],
-//                ['email', 'default', 'value' => Yii::$app->user->identity->email],
             ];
         }
 
         public function init(){
-            $this->name =Yii::$app->user->identity->name;
-            $this->phone =Yii::$app->user->identity->phone;
-            $this->email =Yii::$app->user->identity->email;
+            $this->name = Yii::$app->user->identity->name;
+            $this->phone = Yii::$app->user->identity->phone;
+            $this->email = Yii::$app->user->identity->email;
         }
 
         public function scenarios(){
-            return ['default'=>['name','phone','email']];
+            return ['default' => ['name', 'phone', 'email']];
+        }
+
+        public function attributeLabels(){
+            return [
+                'name'  => Yii::t('app', 'Name'),
+                'email' => Yii::t('app', 'Email'),
+                'phone' => Yii::t('app', 'Phone'),
+            ];
         }
     }

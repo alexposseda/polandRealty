@@ -32,7 +32,7 @@
         $coord = explode(';', $model->location->coordinates);
         $centerMap = [
             'lat' => $coord[0] * 1,
-            'lng' => $coord[1] * 1
+            'lng' => $coord[1] * 1,
         ];
         $zoom = 18;
     }
@@ -62,7 +62,7 @@
 <div class="row">
     <div class="col-lg-3 contact">
         <div class="panel panel-danger">
-            <span class="page-header">Contact</span>
+            <span class="page-header"><?= Yii::t('app', 'Contact') ?></span>
             <div class="panel-body">
                 <div class=""><?= $form->field($model->contact, 'name') ?></div>
                 <div class=""><?= $form->field($model->contact, 'phone') ?></div>
@@ -72,7 +72,7 @@
     </div>
     <div class="col-lg-5 location">
         <div class="panel panel-default">
-            <span class="page-header">Location</span>
+            <span class="page-header"><?= Yii::t('app', 'Location') ?></span>
             <div class="panel-body">
                 <div class="row">
                     <?php $country = ArrayHelper::map(Country::find()
@@ -83,7 +83,8 @@
                     <div class="col-lg-6"><?= $form->field($model->location, 'city') ?></div>
                     <div class="col-lg-6"><?= $form->field($model->location, 'region') ?></div>
                     <div class="col-lg-12"><?= $form->field($model->location, 'street') ?></div>
-                    <div class="col-lg-12"><?= $form->field($model->location, 'coordinates') ?></div>
+                    <div class="col-lg-12"><?= $form->field($model->location, 'coordinates')
+                                                    ->textInput(['readonly' => true]) ?></div>
                 </div>
             </div>
         </div>
@@ -98,8 +99,8 @@
                                                   'zoom'         => $zoom,
                                                   'draggable'    => true,
                                                   'addressInpId' => 'location-street',
-                                                  'coordInpId'   => 'location-coordinates'
-                                              ]
+                                                  'coordInpId'   => 'location-coordinates',
+                                              ],
                                           ]) ?>
             </div>
         </div>
@@ -113,7 +114,8 @@
                                   'files'         => ($model->realty->isNewRecord) ? '' : $model->realty->gallery,
                                   'targetInputId' => 'gallery',
                                   'maxFiles'      => 10,
-                                  'title'         => 'Gallery',
+                                  'title'         => Yii::t('app', 'Gallery'),
                               ]) ?>
-<?= Html::submitButton('save') ?>
+<?= Html::submitButton(($model->realty->isNewRecord) ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+                       ['class' => 'btn '.(($model->realty->isNewRecord) ? 'btn-primary' : 'btn-warning')]) ?>
 <?php ActiveForm::end() ?>

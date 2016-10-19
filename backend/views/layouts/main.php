@@ -28,7 +28,7 @@
 <div class="wrap">
     <?php
         NavBar::begin([
-                          'brandLabel' => 'My Company',
+                          'brandLabel' => 'My',
                           'brandUrl'   => Yii::$app->homeUrl,
                           'options'    => [
                               'class' => 'navbar-inverse navbar-fixed-top',
@@ -36,21 +36,22 @@
                       ]);
         $menuItems = [];
         if(Yii::$app->user->isGuest){
-            $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+            $menuItems[] = ['label' => Yii::t('app','Login'), 'url' => ['/site/login']];
         }else{
             if(Yii::$app->user->can('adminAccess')){
                 $menuItems = array_merge($menuItems, [
-                    ['label' => 'Home', 'url' => ['/site/index']],
-                    ['label' => 'User', 'url' => ['/type/index','nameModel'=>'user']],
-                    ['label' => 'Realty', 'url' => ['/type/index','nameModel'=>'realty']],
-                    ['label' => 'PostalCode', 'url' => ['/type/postalCode']],
-                    ['label' => 'AdType', 'url' => ['/type/adType']],
-                    ['label' => 'BuildingType', 'url' => ['/type/buildingType']],
-                    ['label' => 'Language', 'url' => ['/type/language']],
-                    ['label' => 'Country', 'url' => ['/type/country']],
+//                    ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
+                    ['label' => Yii::t('app', 'User'), 'url' => ['/type/index', 'nameModel' => 'user']],
+                    ['label' => Yii::t('app', 'Realty'), 'url' => ['/type/index', 'nameModel' => 'realty']],
+                    ['label' => Yii::t('app', 'PostalCode'), 'url' => ['/type/index', 'nameModel' => 'postalCode']],
+                    ['label' => Yii::t('app', 'AdType'), 'url' => ['/type/index', 'nameModel' => 'adType']],
+                    ['label' => Yii::t('app', 'PropertyType'), 'url' => ['/type/index', 'nameModel' => 'propertyType']],
+                    ['label' => Yii::t('app', 'BuildingType'), 'url' => ['/type/index', 'nameModel' => 'buildingType']],
+                    ['label' => Yii::t('app', 'Language'), 'url' => ['/type/index', 'nameModel' => 'language']],
+                    ['label' => Yii::t('app', 'Country'), 'url' => ['/type/index', 'nameModel' => 'country']],
                 ]);
             }
-            $menuItems[] = '<li>'.Html::beginForm(['/site/logout'], 'post').Html::submitButton('Logout ('.Yii::$app->user->identity->name.')',
+            $menuItems[] = '<li>'.Html::beginForm(['/site/logout'], 'post').Html::submitButton(Yii::t('app','Logout').' ('.Yii::$app->user->identity->name.')',
                                                                                                ['class' => 'btn btn-link']).Html::endForm().'</li>';
         }
         echo Nav::widget([

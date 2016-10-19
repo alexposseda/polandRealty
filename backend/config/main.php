@@ -41,9 +41,10 @@
                     '/'                                                  => 'site/index',
                     'type/<nameModel>/<action:(create)>'                 => 'type/<action>',
                     'type/<nameModel>/<action:(update|delete)>/<id:\d+>' => 'type/<action>',
-                    'type/<nameModel:^(realty-\w+)>'                                   => 'type/index',
-
+                    'type/<action:(realty-\w+)>'                         => 'type/<action>',
+                    'type/<nameModel>'                         => 'type/index',
                 ],
+                'languages' => ['en', 'pl'],
             ],
 
         ],

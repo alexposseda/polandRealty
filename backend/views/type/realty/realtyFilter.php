@@ -39,7 +39,7 @@
                                                                                                     ->all(), 'id', 'title')) ?>
     </div>
 
-    <div class="input-field no-marg-top col-sm-10 col-sm-offset-1">
+    <div class="input-field no-marg-top col-lg-10 col-lg-offset-1">
         <?= SliderWidget::widget([
                                      'label'     => 'Price, pln',
                                      'model'     => $searchModel,
@@ -48,7 +48,7 @@
                                      'interval'  => $priceInterval
                                  ]) ?>
     </div>
-    <div class="input-field no-marg-top col-sm-10 col-sm-offset-1">
+    <div class="input-field no-marg-top col-lg-10 col-lg-offset-1">
         <?= SliderWidget::widget([
                                      'label'     => 'Area, m2',
                                      'model'     => $searchModel,
@@ -59,7 +59,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-lg-10 col-lg-offset-1">
         <?= Html::submitButton('Подобрать', ['class' => 'btn red fullWidth waves-effect waves-light']) ?>
     </div>
 </div>

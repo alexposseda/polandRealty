@@ -96,16 +96,16 @@
         public function attributeLabels(){
             return [
                 'id'                   => 'ID',
-                'email'                => 'Email',
-                'name'                 => 'Name',
-                'phone'                => 'Phone',
+                'email'                => Yii::t('app', 'Email'),
+                'name'                 => Yii::t('app', 'Name'),
+                'phone'                => Yii::t('app', 'Phone'),
                 'auth_key'             => 'Auth Key',
                 'password_hash'        => 'Password Hash',
                 'password_reset_token' => 'Password Reset Token',
                 'email_confirm_token'  => 'Email Confirm Token',
-                'status'               => 'Status',
-                'created_at'           => 'Created At',
-                'updated_at'           => 'Updated At',
+                'status'               => Yii::t('app', 'Status'),
+                'created_at'           => Yii::t('app', 'Created At'),
+                'updated_at'           => Yii::t('app', 'Updated At'),
             ];
         }
 

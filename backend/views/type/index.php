@@ -11,27 +11,28 @@
 
     $nameModel = substr($nameModel, strripos($nameModel, '\\'));
 
-    $this->title = ucfirst($nameModel);
+    $this->title = Yii::t('app', ucfirst($nameModel));
 
-    $gridview = GridView::widget(['dataProvider' => $dataProvider, 'filterModel' => $filterModel, 'columns' => $columns,]);
+    $gridview = GridView::widget(['dataProvider' => $dataProvider, 'columns' => $columns,]);
+    $createBtn = Html::a(Yii::t('app', 'Create'), ['type/'.$nameModel.'/create'], ['class' => 'btn btn-primary']);
 ?>
 
 <div class="row">
     <?php if($nameModel == 'realty'): ?>
         <div class="col-lg-10 col-lg-offset-2">
-            <?= Html::a('Create', ['type/'.$nameModel.'/create'], ['class' => 'btn btn-primary']) ?>
+            <?= $createBtn ?>
         </div>
         <div class="col-lg-2 filter">
             <?= $this->render('realty/realtyFilter', ['searchModel' => $filterModel]) ?>
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-10 table-responsive">
             <?= $gridview ?>
         </div>
     <?php else: ?>
         <div class="col-lg-12">
-            <?= Html::a('Create', ['type/'.$nameModel.'/create'], ['class' => 'btn btn-primary']) ?>
+            <?= $createBtn ?>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-12 table-responsive">
             <?= $gridview ?>
         </div>
     <?php endif ?>

@@ -52,9 +52,9 @@
         public function attributeLabels(){
             return [
                 'id'         => 'ID',
-                'title'      => 'Title',
-                'created_at' => 'Created At',
-                'updated_at' => 'Updated At',
+                'title'      => Yii::t('app', 'Title'),
+                'created_at' => Yii::t('app', 'Created At'),
+                'updated_at' => Yii::t('app', 'Updated At'),
             ];
         }
 
