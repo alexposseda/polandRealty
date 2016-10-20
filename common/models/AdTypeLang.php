@@ -58,11 +58,11 @@ class AdTypeLang extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ad_type_id' => 'Ad Type ID',
-            'language' => 'Language',
-            'title' => 'Title',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'ad_type_id' => Yii::t('app', 'Ad Type'),
+            'language' => Yii::t('app', 'Language'),
+            'title' => Yii::t('app', 'Title'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 

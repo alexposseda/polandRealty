@@ -1,9 +1,9 @@
 <?php
     namespace common\models;
-    
+
     use Yii;
     use yii\base\Model;
-    
+
     /**
      * Login form
      */
@@ -11,10 +11,10 @@
         public $email;
         public $password;
         public $rememberMe = true;
-        
+
         private $_user;
-        
-        
+
+
         /**
          * @inheritdoc
          */
@@ -23,21 +23,29 @@
                 [
                     [
                         'email',
-                        'password'
+                        'password',
                     ],
-                    'required'
+                    'required',
                 ],
                 [
                     'rememberMe',
-                    'boolean'
+                    'boolean',
                 ],
                 [
                     'password',
-                    'validatePassword'
+                    'validatePassword',
                 ],
             ];
         }
-        
+
+        public function attributeLabels(){
+            return [
+                'email'      => Yii::t('app', 'Email'),
+                'password'   => Yii::t('app', 'Password'),
+                'rememberMe' => Yii::t('app', 'Remember Me'),
+            ];
+        }
+
         /**
          * Validates the password.
          * This method serves as the inline validation for password.
@@ -53,7 +61,7 @@
                 }
             }
         }
-        
+
         /**
          * Logs in a user using the provided username and password.
          *
@@ -66,7 +74,7 @@
                 return false;
             }
         }
-        
+
         /**
          * Finds user by email
          *
@@ -76,7 +84,7 @@
             if($this->_user === null){
                 $this->_user = UserIdentity::findByEmail($this->email, UserIdentity::STATUS_ACTIVE);
             }
-            
+
             return $this->_user;
         }
     }

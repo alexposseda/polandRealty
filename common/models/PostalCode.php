@@ -56,13 +56,13 @@
         public function attributeLabels(){
             return [
                 'id'         => 'ID',
-                'country_id' => 'Country ID',
-                'code'       => 'Code',
-                'region'     => 'Region',
-                'city'       => 'City',
-                'street'     => 'Street',
-                'created_at' => 'Created At',
-                'updated_at' => 'Updated At',
+                'country_id' => Yii::t('app', 'Country'),
+                'code'       => Yii::t('app', 'Code'),
+                'region'     => Yii::t('app', 'Region'),
+                'city'       => Yii::t('app', 'City'),
+                'street'     => Yii::t('app', 'Street'),
+                'created_at' => Yii::t('app', 'Created At'),
+                'updated_at' => Yii::t('app', 'Updated At'),
             ];
         }
 

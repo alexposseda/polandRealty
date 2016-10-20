@@ -58,11 +58,11 @@ class BuildingTypeLang extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'building_type_id' => 'Building Type ID',
-            'language' => 'Language',
-            'title' => 'Title',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'building_type_id' => Yii::t('app', 'Building Type'),
+            'language' => Yii::t('app', 'Language'),
+            'title' => Yii::t('app', 'Title'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 

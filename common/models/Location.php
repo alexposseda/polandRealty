@@ -62,14 +62,14 @@ class Location extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'realty_id' => 'Realty ID',
-            'country_id' => 'Country ID',
-            'city' => 'City',
-            'region' => 'Region',
-            'street' => 'Street',
-            'coordinates' => 'Coordinates',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'realty_id' => Yii::t('app', 'Realty'),
+            'country_id' => Yii::t('app', 'Country'),
+            'city' => Yii::t('app', 'City'),
+            'region' => Yii::t('app', 'Region'),
+            'street' => Yii::t('app', 'Street'),
+            'coordinates' => Yii::t('app', 'Coordinates'),
+            'created_at' => Yii::t('app', 'Created At'),
+            'updated_at' => Yii::t('app', 'Updated At'),
         ];
     }
 
@@ -88,4 +88,25 @@ class Location extends ActiveRecord
     {
         return $this->hasOne(Realty::className(), ['id' => 'realty_id']);
     }
+
+    public function getAttrib($name = 'full'){
+
+        $attr = [
+            'full'   => [
+                'realty_id',
+                'country.name',
+                'city',
+                'region',
+                'street',
+                'coordinates',
+                'created_at:datetime',
+                'updated_at:datetime',
+            ],
+            'create' => [
+            ],
+        ];
+
+        return $attr[$name];
+    }
+
 }

@@ -27,6 +27,19 @@
             ];
         }
 
+        public function afterFind(){
+            if(Yii::$app->language != Yii::$app->sourceLanguage){
+                $lang = $this->getAdTypeLangs()
+                             ->where(['language' => Yii::$app->language])
+                             ->one();
+                if($lang){
+                    $this->title = $lang->title;
+                }else{
+                    Yii::$app->session->setFlash('error', 'Title not in '.Yii::$app->language.' language');
+                }
+            }
+        }
+
         /**
          * @inheritdoc
          */
@@ -52,9 +65,9 @@
         public function attributeLabels(){
             return [
                 'id'         => 'ID',
-                'title'      => 'Title',
-                'created_at' => 'Created At',
-                'updated_at' => 'Updated At',
+                'title'      => Yii::t('app', 'Title'),
+                'created_at' => Yii::t('app', 'Created At'),
+                'updated_at' => Yii::t('app', 'Updated At'),
             ];
         }
 
@@ -75,7 +88,7 @@
         public static function getAttrib($name = 'full'){
             $attr = [
                 'full'   => ['title', 'created_at:datetime', 'updated_at:datetime'],
-                'create'   => ['title'],
+                'create' => ['title'],
             ];
 
             return $attr[$name];
