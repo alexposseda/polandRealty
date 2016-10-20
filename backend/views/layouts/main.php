@@ -42,7 +42,6 @@
                 $menuItems = array_merge($menuItems, [
 //                    ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
                     ['label' => Yii::t('app', 'User'), 'url' => ['/type/index', 'nameModel' => 'user']],
-                    ['label' => Yii::t('app', 'Realty'), 'url' => ['/type/index', 'nameModel' => 'realty']],
                     ['label' => Yii::t('app', 'PostalCode'), 'url' => ['/type/index', 'nameModel' => 'postalCode']],
                     ['label' => Yii::t('app', 'AdType'), 'url' => ['/type/index', 'nameModel' => 'adType']],
                     ['label' => Yii::t('app', 'PropertyType'), 'url' => ['/type/index', 'nameModel' => 'propertyType']],

@@ -97,8 +97,6 @@
                 'full'   => [
                     'code',
                     'title',
-                    'created_at:datetime',
-                    'updated_at:datetime',
                 ],
                 'create' => [
                     'code',

@@ -99,8 +99,6 @@ class Location extends ActiveRecord
                 'region',
                 'street',
                 'coordinates',
-                'created_at:datetime',
-                'updated_at:datetime',
             ],
             'create' => [
             ],

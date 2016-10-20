@@ -74,7 +74,7 @@
 
         public static function getAttrib($name = 'full'){
             $attr = [
-                'full'   => ['title', 'created_at:datetime', 'updated_at:datetime'],
+                'full'   => ['title'],
                 'create' => ['title'],
             ];
 

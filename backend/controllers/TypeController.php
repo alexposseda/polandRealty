@@ -51,25 +51,6 @@
             ];
         }
 
-        public function actions(){
-            return [
-                'realty-upload' => [
-                    'class'         => UploadAction::className(),
-                    'uploadPath'    => 'realty',
-                    'sessionEnable' => true,
-                    'uploadModel'   => new RealtyGallery([
-                                                             'validationRules' => [
-                                                                 'extensions' => 'jpg, png',
-                                                                 'maxSize'    => 1024 * 1024 * 2,
-                                                             ],
-                                                         ]),
-                ],
-                'realty-remove' => [
-                    'class' => RemoveAction::className(),
-                ],
-            ];
-        }
-
         /**
          * @param $nameModel string
          *
@@ -116,12 +97,7 @@
 
             /** @var ActiveRecord $model */
             $model = new $mod();
-            if($nameModel == 'realty'){
-                $model = new RealtyForm($model);
-                if($model->load() && $model->save()){
-                    return $this->redirect([$nameModel]);
-                }
-            }
+            
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
                 return $this->redirect([$nameModel]);
@@ -137,13 +113,6 @@
             $model = $mod::findOne($id);
             if(!$model){
                 throw new NotFoundHttpException('The requested page does not exist.');
-            }
-
-            if($nameModel == 'realty'){
-                $model = new RealtyForm($model);
-                if($model->load() && $model->save()){
-                    return $this->redirect([$nameModel]);
-                }
             }
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
@@ -167,5 +136,13 @@
                 return 'common\models\\'.ucfirst($nameModel);
             }
             throw new NotFoundHttpException('The requested class does not exist.');
+        }
+        
+        public function beforeAction($action){
+            $nameModel = Yii::$app->request->get('nameModel');
+            if($nameModel == 'realty'){
+                throw new NotFoundHttpException('Page Not Found');
+            }
+            return true;
         }
     }

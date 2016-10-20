@@ -80,7 +80,7 @@ class Country extends ActiveRecord
 
     public static function getAttrib($name = 'full'){
         $attr = [
-            'full'   => ['name', 'created_at:datetime', 'updated_at:datetime'],
+            'full'   => ['name'],
             'create'   => ['name'],
         ];
 

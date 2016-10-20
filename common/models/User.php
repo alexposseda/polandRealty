@@ -129,8 +129,6 @@
                             return Yii::t('data', $model->status);
                         },
                     ],
-                    'created_at:datetime',
-                    'updated_at:datetime',
                 ],
                 'create' => [
                     'status',

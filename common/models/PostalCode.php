@@ -81,8 +81,6 @@
                     'region',
                     'city',
                     'street',
-                    'created_at:datetime',
-                    'updated_at:datetime',
                 ],
                 'create' => [
                     'country_id',
