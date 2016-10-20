@@ -19,7 +19,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <?= $createBtn ?>
+        <?= $nameModel != 'user' ? $createBtn : '' ?>
     </div>
     <div class="col-lg-12 table-responsive">
         <?= $gridview ?>

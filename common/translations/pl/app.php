@@ -9,6 +9,7 @@
         'Delete'        => 'Delete_PL',
         'Select'        => 'Select_PL',
         //column
+        'Role'          => 'Role_PL',
         'Email'         => 'Email_PL',
         'Name'          => 'Name_PL',
         'Phone'         => 'Phone_PL',

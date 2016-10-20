@@ -11,6 +11,7 @@
     use Yii;
     use yii\alexposseda\fileManager\actions\RemoveAction;
     use yii\alexposseda\fileManager\actions\UploadAction;
+    use yii\base\ErrorException;
     use yii\base\Model;
     use yii\bootstrap\Html;
     use yii\data\ActiveDataProvider;
@@ -93,11 +94,13 @@
         }
 
         public function actionCreate($nameModel){
+            if($nameModel == 'user'){
+                throw new ErrorException('don`t create User');
+            }
             $mod = $this->getModel($nameModel);
 
             /** @var ActiveRecord $model */
             $model = new $mod();
-            
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
                 return $this->redirect([$nameModel]);
@@ -119,7 +122,7 @@
                 return $this->redirect([$nameModel]);
             }
 
-            return $this->render('update', ['model' => $model]);
+            return $this->render($nameModel == 'user' ? '_userForm' : 'update', ['model' => $model]);
         }
 
         public function actionDelete($nameModel, $id){
@@ -137,12 +140,13 @@
             }
             throw new NotFoundHttpException('The requested class does not exist.');
         }
-        
+
         public function beforeAction($action){
             $nameModel = Yii::$app->request->get('nameModel');
             if($nameModel == 'realty'){
                 throw new NotFoundHttpException('Page Not Found');
             }
+
             return true;
         }
     }
