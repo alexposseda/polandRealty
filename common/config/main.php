@@ -24,6 +24,10 @@
                         'class'    => 'yii\i18n\PhpMessageSource',
                         'basePath' => '@common/translations',
                     ],
+                    'data'   => [
+                        'class'    => 'yii\i18n\PhpMessageSource',
+                        'basePath' => '@common/translations',
+                    ],
                     'info'  => [
                         'class'    => 'yii\i18n\PhpMessageSource',
                         'basePath' => '@common/translations',
