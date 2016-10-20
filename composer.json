@@ -18,7 +18,6 @@
         "yiisoft/yii2": ">=2.0.6",
         "yiisoft/yii2-bootstrap": "*",
         "yiisoft/yii2-swiftmailer": "*",
-        "omgdef/yii2-multilingual-behavior": "^2.1",
         "codemix/yii2-localeurls": "^1.4",
         "yiisoft/yii2-imagine": "^2.0",
         "alexposseda/filemanager": "^1.0"

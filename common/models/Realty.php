@@ -2,6 +2,7 @@
 
     namespace common\models;
 
+    use common\components\MultyLangBehavior;
     use common\models\forms\ContactForm;
     use Yii;
     use yii\alexposseda\fileManager\FileManager;
@@ -42,7 +43,12 @@
          */
         public function behaviors(){
             return [
-                ['class' => TimestampBehavior::className(),],
+                ['class' => TimestampBehavior::className()],
+                'ml' => [
+                    'class' => MultyLangBehavior::className(),
+                    'attributes' => ['description'],
+                    'relationName' => 'realty_id'
+                ]
             ];
         }
 

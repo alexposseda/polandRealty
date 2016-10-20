@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "391f19a5b5fdddf6a2c579cebb4b24a7",
-    "content-hash": "9436bf0f59437785ce06e887c4252061",
+    "hash": "60bf3f8820f2d7199ea01826f116a761",
+    "content-hash": "48311294ba7a01316c2a34043d9cdec1",
     "packages": [
         {
             "name": "alexposseda/filemanager",
@@ -433,54 +433,6 @@
                 "image processing"
             ],
             "time": "2013-07-10 17:25:36"
-        },
-        {
-            "name": "omgdef/yii2-multilingual-behavior",
-            "version": "2.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OmgDef/yii2-multilingual-behavior.git",
-                "reference": "93c1c3e20cb9219136b7706291e4e1f1e371dc95"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OmgDef/yii2-multilingual-behavior/zipball/93c1c3e20cb9219136b7706291e4e1f1e371dc95",
-                "reference": "93c1c3e20cb9219136b7706291e4e1f1e371dc95",
-                "shasum": ""
-            },
-            "require": {
-                "yiisoft/yii2": "*"
-            },
-            "require-dev": {
-                "phpunit/dbunit": ">=1.2",
-                "phpunit/phpunit": "4.6.*"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "omgdef\\multilingual\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-4-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "OmgDef",
-                    "email": "omgdef@gmail.com"
-                }
-            ],
-            "description": "Port of the yii-multilingual-behavior for yii",
-            "keywords": [
-                " behavior",
-                " i18",
-                " multilingual",
-                " yii2-multilingual-behavior",
-                "extension",
-                "yii2"
-            ],
-            "time": "2016-02-12 10:38:57"
         },
         {
             "name": "swiftmailer/swiftmailer",

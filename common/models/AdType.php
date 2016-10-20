@@ -2,6 +2,7 @@
 
     namespace common\models;
 
+    use common\components\MultyLangBehavior;
     use Yii;
     use yii\behaviors\TimestampBehavior;
     use yii\db\ActiveRecord;
@@ -23,7 +24,12 @@
          */
         public function behaviors(){
             return [
-                ['class' => TimestampBehavior::className(),],
+                ['class' => TimestampBehavior::className()],
+                'ml' => [
+                    'class' => MultyLangBehavior::className(),
+                    'attributes' => ['title'],
+                    'relationName' => 'ad_type_id'
+                ]
             ];
         }
 
