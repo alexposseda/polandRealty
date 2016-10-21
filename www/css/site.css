@@ -143,25 +143,25 @@
     margin: 0;
 }
 
-.page-top-line li {
+.page-top-line>li {
     display: inline-block;
     vertical-align: middle;
     position: relative;
     cursor: pointer;
 }
 
-.page-top-line li a:not(.btn-floating) {
+.page-top-line>li>a:not(.btn-floating) {
     color: #000;
     display: block;
     padding: 0 10px;
     transition: color 0.3s ease;
 }
 
-.page-top-line li a:not(.btn-floating):hover {
+.page-top-line>li>a:not(.btn-floating):hover {
     color: #37c0fb;
 }
 
-.page-top-line li .material-icons {
+.page-top-line>li .material-icons {
     vertical-align: middle;
     margin-right: 5px;
 }

@@ -46,8 +46,20 @@
                 </div>
                 <div class="col l6">
                     <ul class="page-top-line right-align">
-                        <li><a href="<?= Url::to(['site/registration']) ?>"><i class="material-icons">person_add</i>SignUp</a></li>
-                        <li><a href="#login-form" class="modal-trigger"><i class="material-icons">person</i>SignIn</a></li>
+                        <?php if(Yii::$app->user->isGuest): ?>
+                            <li><a href="<?= Url::to(['site/registration']) ?>"><i class="material-icons">person_add</i>SignUp</a></li>
+                            <li><a href="#login-form" class="modal-trigger"><i class="material-icons">person</i>SignIn</a></li>
+                        <?php else: ?>
+                            <li>
+                                <a data-activates="personal-menu" href="#" id="personal-but"><i class="material-icons">face</i><?= Yii::$app->user->identity->name?></a>
+                                <ul class="dropdown-content" id="personal-menu">
+                                    <li><a href="<?= Url::to(['user/index'])?>">My Ads</a></li>
+                                    <li><a href="<?= Url::to(['user/profile'])?>">Profile</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="<?= Url::to(['site/logout'])?>" data-method="post"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                                </ul>
+                            </li>
+                        <?php endif; ?>
                         <li><a href="<?= Url::to(['realty/create']) ?>"><i class="material-icons">add</i>Add Advert</a></li>
                     </ul>
                 </div>
@@ -95,7 +107,9 @@
                     <div class="col s12 m12 l8 offset-l2 relative">
                         <a href="#!" class="modal-action modal-close modal-close-btn"><i class="material-icons">close</i></a>
                         <h4>Login</h4>
-                        <?php $loginForm = ActiveForm::begin() ?>
+                        <?php $loginForm = ActiveForm::begin([
+                            'action' => Url::to(['site/login'])
+                                                             ]) ?>
                         <form>
                             <div class="row no-margin-bottom">
                                 <?= $loginForm->field($loginFormModel, 'email', ['options' => ['class' => 'input-field col s12 l6']])
