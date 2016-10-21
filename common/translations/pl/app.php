@@ -7,7 +7,8 @@
         'Create'        => 'Create_PL',
         'Update'        => 'Update_PL',
         'Delete'        => 'Delete_PL',
-        'Select'        => 'Select_PL',
+        'Search'        => 'Search_PL',
+        'Apply'        => 'Apply_PL',
         //column
         'Role'          => 'Role_PL',
         'Email'         => 'Email_PL',

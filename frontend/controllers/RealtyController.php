@@ -1,13 +1,16 @@
 <?php
-    
+
     namespace frontend\controllers;
-    
+
+    use common\models\forms\ContactForm;
     use common\models\Realty;
+    use common\models\search\RealtySearch;
+    use Yii;
     use yii\filters\AccessControl;
     use yii\filters\VerbFilter;
     use yii\web\Controller;
     use yii\web\NotFoundHttpException;
-    
+
     class RealtyController extends Controller{
         public function behaviors(){
             return [
@@ -17,10 +20,10 @@
                         [
                             'actions' => [
                                 'index',
-                                'view'
+                                'view',
                             ],
                             'allow'   => true,
-                            'roles'   => ['?'],
+//                            'roles'   => ['?'],
                         ],
                         [
                             'actions' => ['create'],
@@ -30,50 +33,57 @@
                         [
                             'actions' => [
                                 'update',
-                                'delete'
+                                'delete',
                             ],
                             'allow'   => true,
                             'roles'   => [
                                 'registeredUser',
-                                'manager'
+                                'manager',
                             ],
                         ],
                     ],
                 ],
                 'verbs'  => [
-                    'class' => VerbFilter::className(),
+                    'class'   => VerbFilter::className(),
                     'actions' => [
                         'delete' => ['post'],
                     ],
                 ],
             ];
         }
-        
+
         public function actionIndex(){
-            return $this->render('index');
+            $searchModel = new RealtySearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->post());
+            $dataProvider->pagination=['pageSize' => 4,];
+            return $this->render('index',['dataProvider'=>$dataProvider,'searchModel'=>$searchModel]);
         }
-        
+
         public function actionView($id){
-            return $this->render('view', ['id' => $id]);
+            $model = $this->findModel($id);
+
+            $contact = json_decode($model->contact);
+
+            return $this->render('view', ['model' => $model, 'contact' => $contact]);
         }
-        
+
         public function actionCreate(){
             return $this->render('create');
         }
-        
+
         public function actionUpdate($id){
             return $this->render('update', ['id' => $id]);
         }
-        
+
         public function actionDelete($id){
         }
-        
+
         protected function findModel($id){
             $model = Realty::findOne($id);
             if(is_null($model)){
                 throw new NotFoundHttpException('Realty not found...');
             }
-            
+
             return $model;
         }
     }

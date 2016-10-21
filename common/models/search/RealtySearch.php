@@ -7,27 +7,16 @@
     use yii\data\ActiveDataProvider;
 
     class RealtySearch extends Realty{
-        public $name;
         public $priceFrom;
         public $priceTo;
         public $areaFrom;
         public $areaTo;
-        public $cityName;
-        public $countryName;
+
+        public $country_id;
         public $postalCode;
-
-        public function getInterval($attribute){
-            $query = Realty::find();
-
-            $minProp = $query->min($attribute);
-
-            $maxProp = $query->max($attribute);
-
-            return [
-                'min' => $minProp,
-                'max' => $maxProp,
-            ];
-        }
+        public $region;
+        public $city;
+        public $street;
 
         public function attributeLabels(){
             return [
@@ -40,8 +29,8 @@
 
         public function rules(){
             return [
-                [['name', 'price', 'area'], 'string'],
-                [['ad_type_id', 'property_type_id', 'building_type_id'], 'integer'],
+                [['ad_type_id', 'building_type_id', 'country_id', 'postalCode', 'priceFrom', 'priceTo', 'areaFrom', 'areaTo',], 'integer'],
+                [['region', 'city', 'street',], 'string'],
             ];
         }
 
@@ -60,22 +49,44 @@
                 return $dataProvider;
             }
 
+            if(!empty($this->priceFrom) || !empty($this->priceTo)){
+                $this->priceFrom = !empty($this->priceFrom) ? $this->priceFrom : self::find()
+                                                                                     ->min('price');
+                $this->priceTo = !empty($this->priceTo) ? $this->priceTo : self::find()
+                                                                               ->max('price');
+            }
+
+            if(!empty($this->areaFrom) || !empty($this->areaTo)){
+                $this->areaFrom = !empty($this->areaFrom) ? $this->areaFrom : self::find()
+                                                                                  ->min('area');
+                $this->areaTo = !empty($this->areaTo) ? $this->areaTo : self::find()
+                                                                            ->max('area');
+            }
+
             $query->andFilterWhere(['ad_type_id' => $this->ad_type_id])
                   ->andFilterWhere(['property_type_id' => $this->property_type_id,])
                   ->andFilterWhere(['building_type_id' => $this->building_type_id]);
 
-            $query->andFilterWhere(['like', 'createdBy.name', $this->name]);
+            $query->andFilterWhere(['between', 'area', $this->areaFrom, $this->areaTo])
+                  ->andFilterWhere(['between', 'price', $this->priceFrom, $this->priceTo]);
 
-            $price = explode(';', $this->price);
-            $area = explode(';', $this->area);
+            if(!empty($this->city)){
+                $query->joinWith(['location'])
+                      ->andFilterWhere(['like', 'city', $this->city]);
+            }
+            if(!empty($this->street)){
+                $query->joinWith(['location'])
+                      ->andFilterWhere(['like', 'street', $this->street]);
+            }
 
-            $query->andFilterWhere(['between', 'area', $area[0], $area[1]])
-                  ->andFilterWhere(['between', 'price', $price[0], $price[1]]);
-
-            $query->andFilterWhere(['like', 'location.region', $this->location->region])
-                  ->andFilterWhere(['like', 'location.city', $this->cityName])
-                  ->andFilterWhere(['like', 'location.country.postalCodes.code', $this->postalCode])
-                  ->andFilterWhere(['like', 'location.country.name', $this->countryName]);
+            if(!empty($this->country_id)){
+                $query->joinWith(['location'])
+                      ->andFilterWhere(['country_id' => $this->country_id]);
+            }
+            if(!empty($this->region)){
+                $query->joinWith(['location'])
+                    ->andFilterWhere(['region' => $this->region]);
+            }
 
             return $dataProvider;
         }

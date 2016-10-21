@@ -3,9 +3,12 @@
     namespace frontend\controllers;
 
     use common\models\search\RealtySearch;
+    use common\models\User;
     use Yii;
+    use yii\db\ActiveRecord;
     use yii\filters\AccessControl;
     use yii\web\Controller;
+    use yii\web\NotFoundHttpException;
 
     class UserController extends Controller{
         /**
@@ -47,6 +50,7 @@
         }
 
         public function actionProfile(){
+            /** @var ActiveRecord $model */
             $model = Yii::$app->user->identity;
 
             if($model->load(Yii::$app->request->post()) && $model->save()){
@@ -57,6 +61,11 @@
         }
 
         public function actionView($id){
-            //todo выводим информацию о пользователе
+            $model = User::findOne($id);
+            if(is_null($model)){
+                throw new NotFoundHttpException('Not found');
+            }
+
+            return $this->render('view',['model'=>$model]);
         }
     }
