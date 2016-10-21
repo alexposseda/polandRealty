@@ -4,6 +4,7 @@
 
     use Yii;
     use yii\behaviors\TimestampBehavior;
+    use yii\bootstrap\Html;
     use yii\db\ActiveRecord;
 
     /**
@@ -131,6 +132,7 @@
                     ],
                 ],
                 'create' => [
+                    'role',
                     'status',
                 ],
             ];

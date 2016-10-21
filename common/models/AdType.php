@@ -33,18 +33,6 @@
             ];
         }
 
-        public function afterFind(){
-            if(Yii::$app->language != Yii::$app->sourceLanguage){
-                $lang = $this->getAdTypeLangs()
-                             ->where(['language' => Yii::$app->language])
-                             ->one();
-                if($lang){
-                    $this->title = $lang->title;
-                }else{
-                    Yii::$app->session->setFlash('error', 'Title not in '.Yii::$app->language.' language');
-                }
-            }
-        }
 
         /**
          * @inheritdoc
