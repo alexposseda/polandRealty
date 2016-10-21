@@ -531,3 +531,10 @@
     border-top: 1px solid #b9b9b9;
     border-bottom: 1px solid #b9b9b9;
 }
+input.validate+label:after{
+    top: 35px;
+    transition: top 0.4s ease;
+}
+input.validate+label.active:after{
+    top: 65px;
+}

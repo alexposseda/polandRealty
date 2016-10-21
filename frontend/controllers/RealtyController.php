@@ -20,7 +20,6 @@
                                 'view'
                             ],
                             'allow'   => true,
-                            'roles'   => ['?'],
                         ],
                         [
                             'actions' => ['create'],

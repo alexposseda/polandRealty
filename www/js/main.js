@@ -19,4 +19,21 @@ $(document).ready(function(){
         }
     );
 
+    $('form').on('afterValidateAttribute', function(event, attribute, message){
+        var input = $(attribute.input);
+        var timer = setInterval(function(){
+            if(attribute.status == 1){
+                clearInterval(timer);
+                if(input.parent().hasClass('invalid')){
+                    input.removeClass('valid').addClass('invalid').parent().find('.help-block').remove();
+                    if (message) {
+                        input.next().attr('data-error', message);
+                    }
+                }else if(input.parent().hasClass('valid')){
+                    input.removeClass('invalid').addClass('valid').next().removeAttr('data-error');
+                }
+            }
+        }, 4);
+    });
+
 });

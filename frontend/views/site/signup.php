@@ -9,13 +9,13 @@
     
     $this->title                   = 'Signup';
 ?>
-<div class="site-signup">
+<div class="container">
     <h1><?= Html::encode($this->title) ?></h1>
     
     <p>Please fill out the following fields to signup:</p>
     
     <div class="row">
-        <div class="col-lg-5">
+        <div class="col s12 l6">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
             
             <?= $form->field($model, 'email')->input('email', ['autofocus' => true]) ?>
