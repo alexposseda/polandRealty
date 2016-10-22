@@ -17,10 +17,12 @@ function mapInit() {
         position: mapConfig.center
     });
 
-    google.maps.event.addListener(marker, 'drag', function(){
-        geocoder.geocode({'location': marker.getPosition()}, function(results, status){
-            if(status == google.maps.GeocoderStatus.OK){
-                document.getElementById(mapConfig.coordInpId).value = results[0].geometry.location.lat()+';'+results[0].geometry.location.lng();
+    google.maps.event.addListener(marker, 'drag', function () {
+        geocoder.geocode({'location': marker.getPosition()}, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                document.getElementById(mapConfig.coordInpId).value = results[0].geometry.location.lat() + ';' + results[0].geometry.location.lng();
+                console.log(results[0]);
+                document.getElementById(mapConfig.addressInpId).value = results[0].formatted_address;
             }
         });
     });

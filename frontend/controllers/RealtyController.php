@@ -3,6 +3,7 @@
     namespace frontend\controllers;
 
     use common\models\forms\ContactForm;
+    use common\models\forms\RealtyForm;
     use common\models\Realty;
     use common\models\search\RealtySearch;
     use Yii;
@@ -23,7 +24,7 @@
                                 'view',
                             ],
                             'allow'   => true,
-//                            'roles'   => ['?'],
+                            //                            'roles'   => ['?'],
                         ],
                         [
                             'actions' => ['create'],
@@ -55,24 +56,36 @@
         public function actionIndex(){
             $searchModel = new RealtySearch();
             $dataProvider = $searchModel->search(Yii::$app->request->post());
-            $dataProvider->pagination=['pageSize' => 4,];
-            return $this->render('index',['dataProvider'=>$dataProvider,'searchModel'=>$searchModel]);
+            $dataProvider->pagination = ['pageSize' => 4,];
+
+            return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
         }
 
         public function actionView($id){
             $model = $this->findModel($id);
-
             $contact = json_decode($model->contact);
 
             return $this->render('view', ['model' => $model, 'contact' => $contact]);
         }
 
         public function actionCreate(){
-            return $this->render('create');
+            $model = new RealtyForm(new Realty());
+
+            if($model->load() && $model->save()){
+                return $this->redirect(['index']);
+            }
+
+            return $this->render('create', ['model' => $model]);
         }
 
         public function actionUpdate($id){
-            return $this->render('update', ['id' => $id]);
+            $model = new RealtyForm($this->findModel($id));
+
+            if($model->load() && $model->save()){
+                return $this->redirect(['index']);
+            }
+
+            return $this->render('update', ['model' => $model]);
         }
 
         public function actionDelete($id){

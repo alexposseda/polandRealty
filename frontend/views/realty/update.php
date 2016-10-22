@@ -1,3 +1,10 @@
 <?php
+    /**
+     * @var $this  \yii\web\View
+     * @var $model \common\models\forms\RealtyForm
+     */
+
+    $this->title = Yii::t('app', 'Update')
 ?>
-<h2>realty update <?= $id?></h2>
+
+<?= $this->render('_formRealty', ['model' => $model]);

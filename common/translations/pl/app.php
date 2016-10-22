@@ -8,7 +8,7 @@
         'Update'        => 'Update_PL',
         'Delete'        => 'Delete_PL',
         'Search'        => 'Search_PL',
-        'Apply'        => 'Apply_PL',
+        'Apply'         => 'Apply_PL',
         //column
         'Role'          => 'Role_PL',
         'Email'         => 'Email_PL',
@@ -44,7 +44,7 @@
         'Price To'      => 'Price To_PL',
         'Area From'     => 'Area From_PL',
         'Area To'       => 'Area To_PL',
-
+        'Map'           => 'Map',
         //table
         'PostalCode'    => 'PostalCode_PL',
         'AdType'        => 'AdType_PL',

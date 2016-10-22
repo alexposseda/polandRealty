@@ -33,13 +33,13 @@
                         <?= $filter->field($searchModel, 'building_type_id')
                                    ->dropDownList($realtyType, ['prompt' => Yii::t('info', 'Select realty type'), 'id' => "filter-realty-type"])
                                    ->label(false) ?>
-                    </div>
+                    </div><!--Building Type-->
                     <div class="input-field col s12 m4 l4">
                         <label class="label" for="filter-ad-type"><?= Yii::t('app', 'Ad Type') ?></label>
                         <?= $filter->field($searchModel, 'ad_type_id')
                                    ->dropDownList($advertingType, ['prompt' => Yii::t('info', 'Select adverting type'), 'id' => "filter-ad-type"])
                                    ->label(false) ?>
-                    </div>
+                    </div><!--Ad Type-->
                     <div class="col s12 m4 l4">
                         <div class="row no-margin">
                             <p class="label"><?= Yii::t('app', 'Price') ?></p>
@@ -54,7 +54,7 @@
                                            ->label(false) ?>
                             </div>
                         </div>
-                    </div>
+                    </div><!--Price-->
                 </div>
                 <div class="row no-margin-bottom">
                     <div class="input-field col s12 m8 l8 relative">
