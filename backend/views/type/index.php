@@ -15,6 +15,8 @@
 
     $gridview = GridView::widget(['dataProvider' => $dataProvider, 'columns' => $columns,]);
     $createBtn = Html::a(Yii::t('app', 'Create'), ['type/'.$nameModel.'/create'], ['class' => 'btn btn-primary']);
+    
+    var_dump(Yii::$app->user->isGuest);
 ?>
 
 <div class="row">

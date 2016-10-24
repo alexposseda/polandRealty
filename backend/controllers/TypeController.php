@@ -147,6 +147,6 @@
                 throw new NotFoundHttpException('Page Not Found');
             }
 
-            return true;
+            return parent::beforeAction($action);
         }
     }

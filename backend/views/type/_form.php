@@ -6,7 +6,16 @@
     use yii\bootstrap\ActiveForm;
     use yii\bootstrap\Html;
     use yii\bootstrap\Tabs;
-
+    use yii\helpers\ArrayHelper;
+    
+    function getRelation($attribute){
+        if(strpos($attribute, '_id') !== false ){
+            $propertyName = '\common\models\\'.ucfirst(substr($attribute, 0, strpos($attribute, '_id')));
+            return ArrayHelper::map($propertyName::find()->all(), 'id', 'name');
+        }
+        return null;
+    }
+    
     /**
      * @param ActiveForm $form
      * @param            $model
@@ -15,6 +24,7 @@
      *
      * @return string
      */
+    
     function getInputs($form, $model, $attributes, $index = null){
         $str = '';
         foreach($attributes as $attr){
@@ -23,9 +33,15 @@
             }else{
                 $attrName = $attr;
             }
+            
+            $relation = getRelation($attr);
             $lang = (isset($model->language0)) ? $model->language0->code : Yii::$app->sourceLanguage;
-            $str .= $form->field($model, $attrName)
-                         ->label(Yii::t('app', ucfirst($attr), [], $lang));
+            if(!is_null($relation)){
+                $str .= $form->field($model, $attrName)->dropDownList($relation)->label(Yii::t('app', ucfirst($attr), [], $lang));
+            }else{
+                $str .= $form->field($model, $attrName)
+                             ->label(Yii::t('app', ucfirst($attr), [], $lang));
+            }
         }
 
         return $str;

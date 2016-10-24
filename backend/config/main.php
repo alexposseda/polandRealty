@@ -1,7 +1,7 @@
 <?php
     $params = array_merge(require(__DIR__.'/../../common/config/params.php'), require(__DIR__.'/../../common/config/params-local.php'),
         require(__DIR__.'/params.php'), require(__DIR__.'/params-local.php'));
-
+    
     return [
         'id'                  => 'app-backend',
         'basePath'            => dirname(__DIR__),
@@ -15,7 +15,10 @@
             'user'         => [
                 'identityClass'   => \common\models\UserIdentity::className(),
                 'enableAutoLogin' => true,
-                'identityCookie'  => ['name' => '_identity-backend', 'httpOnly' => true],
+                'identityCookie'  => [
+                    'name'     => '_identity-backend',
+                    'httpOnly' => true
+                ],
             ],
             'session'      => [
                 // this is the name of the session cookie used for login on the backend
@@ -26,27 +29,33 @@
                 'targets'    => [
                     [
                         'class'  => 'yii\log\FileTarget',
-                        'levels' => ['error', 'warning'],
+                        'levels' => [
+                            'error',
+                            'warning'
+                        ],
                     ],
                 ],
             ],
             'errorHandler' => [
                 'errorAction' => 'site/error',
             ],
-
+            
             'urlManager' => [
                 'enablePrettyUrl' => true,
                 'showScriptName'  => false,
                 'rules'           => [
-                    '/'                                                  => 'site/index',
-                    'type/<nameModel>/<action:(create)>'                 => 'type/<action>',
-                    'type/<nameModel>/<action:(update|delete)>/<id:\d+>' => 'type/<action>',
-                    'type/<action:(realty-\w+)>'                         => 'type/<action>',
-                    'type/<nameModel>'                         => 'type/index',
+                    '/'                                                               => 'site/index',
+                    '<controller:type>/<nameModel>/<action:(create)>'                 => '<controller>/<action>',
+                    '<controller:type>/<nameModel>/<action:(update|delete)>/<id:\d+>' => '<controller>/<action>',
+                    '<controller:type>/<action:(realty-\w+)>'                         => '<controller>/<action>',
+                    '<controller:type>/<nameModel>'                                   => '<controller>/index',
                 ],
-                'languages' => ['en', 'pl'],
+                'languages'       => [
+                    'en',
+                    'pl'
+                ],
             ],
-
+        
         ],
         'params'              => $params,
     ];

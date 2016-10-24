@@ -6,6 +6,7 @@
     use yii\behaviors\TimestampBehavior;
     use yii\bootstrap\Html;
     use yii\db\ActiveRecord;
+    use yii\db\Query;
 
     /**
      * This is the model class for table "{{%user}}".
@@ -127,9 +128,16 @@
                     [
                         'attribute' => 'status',
                         'content'   => function($model){
-                            return Yii::t('data', $model->status);
+                            return Yii::t('data', Yii::$app->params['userStatuses'][$model->status]);
                         },
                     ],
+                    [
+                        'attribute' => 'role',
+                        'content' => function($model){
+                            $roleData = (new Query())->select(['item_name'])->from(Yii::$app->db->tablePrefix.'auth_assignment')->where(['user_id'=> $model->id])->one();
+                            return $roleData['item_name'];
+                        }
+                    ]
                 ],
                 'create' => [
                     'role',
