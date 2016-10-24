@@ -36,4 +36,14 @@ $(document).ready(function(){
         }, 4);
     });
 
+
+    var paramName = 'property_type_id';
+    var propId = location.href.substr(location.href.lastIndexOf(paramName)+paramName.length+4, 1);
+
+    $('.general-menu a').each(function(){
+        var linkData = $(this).attr('href').substr(location.href.lastIndexOf(paramName)+paramName.length+4, 1);
+        if($(this).attr('href').lastIndexOf(paramName) != -1 && $(this).attr('href').substr($(this).attr('href').lastIndexOf(paramName)+paramName.length+4, 1) == propId){
+            $(this).parent().addClass('active');
+        }
+    });
 });

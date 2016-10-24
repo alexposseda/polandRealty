@@ -7,8 +7,9 @@
     use yii\widgets\ListView;
 
 ?>
-
-<?= ListView::widget([
-                         'itemView'     => '_item',
-                         'dataProvider' => $dataProvider,
-                     ]) ?>
+<div class="container">
+    <?= ListView::widget([
+                             'itemView'     => '_item',
+                             'dataProvider' => $dataProvider,
+                         ]) ?>
+</div>

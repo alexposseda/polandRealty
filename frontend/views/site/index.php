@@ -1,53 +1,62 @@
 <?php
-
-/* @var $this yii\web\View */
-
-$this->title = 'My Yii Application';
+    
+    /* @var $this yii\web\View
+     * @var $dataProvider \yii\data\ActiveDataProvider
+     * @var $searchModel  \common\models\search\RealtySearch
+     */
+    
+    use yii\helpers\Url;
+    use yii\widgets\ListView;
+    use yii\widgets\Pjax;
+    
+    $this->title = 'My Yii Application';
+    
+    $script = <<<JS
+$(document).ready(function(){
+    		$('.parallax').parallax();
+    		$('select').material_select();
+    	});
+JS;
+    
+    $this->registerJs($script, 3);
 ?>
-<div class="site-index">
-
-    <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-    </div>
-
-    <div class="body-content">
-
-        <div class="row">
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-            </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
+<div class="parallax-container">
+    <div class="parallax"><img src="<?= Url::to('/images/parallax1.jpg', true) ?>"></div>
+    <div class="line line-bottom line-withBg">
+        <div class="container">
+            <div class="row no-margin">
+                <div class="col s12 l8">
+                    <h2 class="line-title white-text">Some Lead Header</h2>
+                </div>
+                <div class="col s12 l4 line-buttons">
+                    <a href="<?= Url::to(['realty/create']) ?>" class="btn light-blue wave-effect waves-light truncate">
+                        <i class="material-icons right">add</i>Add Adversting
+                    </a>
+                </div>
             </div>
         </div>
-
+    </div>
+</div>
+<?= $this->render('../realty/filterRealty', ['searchModel' => $searchModel, 'action' => 'realty/index', 'showProperty' => true]) ?>
+<div class="section">
+    <div class="container">
+        <?= ListView::widget([
+                                 'dataProvider' => $dataProvider,
+                                 'itemView'     => '_realtyItem',
+                                 'layout'       => "<div class='row'>{items}</div>\n<div class='pagination-wrap'>{pager}</div>",
+            
+                                 'itemOptions' => [
+                                     'tag'   => 'div',
+                                     'class' => 'col s12 m6 l3',
+                                 ],
+                                 'pager'       => [
+                                     'options'        => [
+                                         'class' => 'pagination center-align',
+                                     ],
+                                     'nextPageLabel'  => '<i class="material-icons">chevron_right</i>',
+                                     'prevPageLabel'  => '<i class="material-icons">chevron_left</i>',
+                                     'maxButtonCount' => 5,
+                                 ],
+                             ]) ?>
     </div>
 </div>

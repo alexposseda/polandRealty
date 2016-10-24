@@ -55,7 +55,7 @@
 
         public function actionIndex(){
             $searchModel = new RealtySearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->post());
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $dataProvider->pagination = ['pageSize' => 4,];
 
             return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);

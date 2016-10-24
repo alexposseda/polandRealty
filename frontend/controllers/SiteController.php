@@ -2,6 +2,7 @@
     namespace frontend\controllers;
     
     use common\components\Notify;
+    use common\models\search\RealtySearch;
     use frontend\models\ConfirmEmailModel;
     use Yii;
     use yii\base\InvalidParamException;
@@ -72,8 +73,12 @@
          * @return mixed
          */
         public function actionIndex(){
-            //todo landing page
-            return $this->render('index');
+
+            $searchModel = new RealtySearch();
+            $dataProvider = $searchModel->search();
+            $dataProvider->pagination = ['pageSize' => 4,];
+    
+            return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
         }
         
         /**

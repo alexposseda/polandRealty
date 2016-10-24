@@ -34,7 +34,7 @@
             ];
         }
 
-        public function search($params){
+        public function search($params = []){
             $query = Realty::find()
                            ->orderBy('created_at');
 

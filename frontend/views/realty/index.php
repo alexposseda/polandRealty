@@ -19,7 +19,8 @@ JS;
 <?= $this->render('filterRealty', ['searchModel' => $searchModel]) ?>
 <div class="section">
     <div class="container">
-        <?php Pjax::begin(['id'=>'realty-list','formSelector'=>'filter']) ?>
+        <?php Pjax::begin(['id'=>'realty-list','formSelector'=>'#filter',
+                           'enablePushState' => true]) ?>
         <?= ListView::widget([
                                  'dataProvider' => $dataProvider,
                                  'itemView'     => '_realtyItem',

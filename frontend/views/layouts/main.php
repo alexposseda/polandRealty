@@ -3,7 +3,9 @@
     /* @var $this \yii\web\View */
     /* @var $content string */
     
+    use common\models\Language;
     use common\models\LoginForm;
+    use common\models\PropertyType;
     use frontend\assets\SiteAsset;
     use macgyer\yii2materializecss\lib\Html;
     use macgyer\yii2materializecss\widgets\form\ActiveForm;
@@ -14,6 +16,24 @@
     SiteAsset::register($this);
     
     $loginFormModel = new LoginForm();
+    
+    $menuItems = [
+        [
+            'label' => Yii::t('app', 'Home'),
+            'url'   => ['site/index']
+        ]
+    ];
+    
+    $propertyTypes = PropertyType::find()
+                                 ->all();
+    foreach($propertyTypes as $pt){
+        $menuItems[] = [
+            'label' => $pt->title,
+            'url'   => ['realty/index', 'RealtySearch[property_type_id]' => $pt->id ]
+        ];
+    }
+    
+    $languages = Language::find()->all();
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -32,12 +52,11 @@
             <div class="fixed-action-btn horizontal lang-btn click-to-toggle">
                 <a class="btn-floating" href="#"><i class="material-icons">language</i></a>
                 <ul>
-                    <li class="tooltipped" data-position="bottom" data-tooltip="Poland">
-                        <a href="#" class="btn-floating"><span class="lang-icon lang-icon-pl"></span></a>
+                    <?php foreach($languages as $lang):?>
+                    <li class="tooltipped" data-position="bottom" data-tooltip="<?= $lang->title?>">
+                        <a href="<?= Url::current(['language' => $lang->code])?>" class="btn-floating"><span class="lang-icon lang-icon-<?= $lang->code?>"></span></a>
                     </li>
-                    <li class="tooltipped" data-position="bottom" data-tooltip="English">
-                        <a href="#" class="btn-floating"><span class="lang-icon lang-icon-en"></span></a>
-                    </li>
+                    <?php endforeach;?>
                 </ul>
             </div>
             <div class="row no-margin">
@@ -73,12 +92,7 @@
                 <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
                 <?= Nav::widget([
                                     'options' => ['class' => 'general-menu hide-on-med-and-down'],
-                                    'items'   => [
-                                        [
-                                            'label' => 'Home',
-                                            'url'   => ['site/index']
-                                        ]
-                                    ],
+                                    'items'   => $menuItems,
                                 ]); ?>
             </div>
         </nav>
@@ -102,7 +116,8 @@
                                     <li><a href="<?= Url::to(['user/index']) ?>">My Ads</a></li>
                                     <li><a href="<?= Url::to(['user/profile']) ?>">Profile</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?= Url::to(['site/logout']) ?>" data-method="post"><i class="material-icons">exit_to_app</i>Logout</a></li>
+                                    <li><a href="<?= Url::to(['site/logout']) ?>" data-method="post"><i
+                                                class="material-icons">exit_to_app</i>Logout</a></li>
                                 </ul>
                             </div>
                         </li>
