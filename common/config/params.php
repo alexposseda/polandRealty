@@ -1,7 +1,7 @@
 <?php
     return [
-        'adminEmail'                    => 'admin@example.com',
-        'supportEmail'                  => 'support@example.com',
+        'adminEmail'                    => 'admin@gr.solutions',
+        'supportEmail'                  => 'admin@gr.solutions',
         'user.passwordResetTokenExpire' => 3600,
         'user.emailConfirmTokenExpire'  => 3600,
         'mapConfig'                     => [
@@ -13,7 +13,7 @@
         ],
         'fileManager'                   => [
             'storagePath'         => dirname(dirname(__DIR__)).'/www/storage',
-            'storageUrl'          => 'http://poland.local/storage/',
+            'storageUrl'          => 'http://poland.promo.gr.solutions/storage/',
             'baseValidationRules' => [
                 'file',
                 'maxFiles' => 1,

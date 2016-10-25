@@ -6,6 +6,8 @@
     use Yii;
     use yii\base\Exception;
     use yii\base\Model;
+    use Swift_Plugins_LoggerPlugin;
+    use Swift_Plugins_Loggers_ArrayLogger;
     
     /**
      * Signup form
@@ -83,18 +85,18 @@
                 if(!$user->save()){
                     throw new Exception('registration failed (cannot save new user)');
                 }
-                $isMailSend = Yii::$app
-                    ->mailer
-                    ->compose(
-                        ['html' => 'confirmEmail-html', 'text' => 'confirmEmail-text'],
-                        ['user' => $user]
-                    )
-                    ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
-                    ->setTo($this->email)
-                    ->setSubject('Confirm Email for ' . Yii::$app->name)
-                    ->send();
-                if(!$isMailSend){
-                    throw new Exception('Sorry, we are unable to send confirm for email provided!');
+                $mailer = Yii::$app->get('mailer');
+                $message = $mailer->compose(
+                    ['html' => 'confirmEmail-html', 'text' => 'confirmEmail-text'],
+                    ['user' => $user]
+                )
+                                  ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' robot'])
+                                  ->setTo($this->email)
+                                  ->setSubject('Confirm email for ' . Yii::$app->name);
+                $logger = new Swift_Plugins_Loggers_ArrayLogger();
+                $mailer->getSwiftMailer()->registerPlugin(new Swift_Plugins_LoggerPlugin($logger));
+                if (!$message->send()) {
+                    throw new Exception($logger->dump());
                 }
                 $transaction->commit();
                 Notify::addMessages('success', 'Check your email for further instructions.');

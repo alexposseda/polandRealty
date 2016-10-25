@@ -70,7 +70,7 @@
                     'content' => function($model) use ($nameModel){
                         $res = Html::a(Yii::t('app', 'Update'), ['type/'.$nameModel.'/update/'.$model->id], ['class' => 'btn btn-info']);
                         $res .= ' ';
-                        $res .= Html::a(Yii::t('app', 'Delete'), ['type/'.$nameModel.'/delete/'.$model->id], ['class' => 'btn btn-danger']);
+                        $res .= Html::a(Yii::t('app', 'Delete'), ['type/'.$nameModel.'/delete/'.$model->id], ['class' => 'btn btn-danger', 'data-method' => 'post']);
 
                         return $res;
                     },
