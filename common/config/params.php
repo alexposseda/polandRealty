@@ -1,7 +1,7 @@
 <?php
     return [
         'adminEmail'                    => 'admin@example.com',
-        'supportEmail'                  => 'support@example.com',
+        'supportEmail'                  => 'robot@gr.solutions',
         'user.passwordResetTokenExpire' => 3600,
         'user.emailConfirmTokenExpire'  => 3600,
         'mapConfig'                     => [

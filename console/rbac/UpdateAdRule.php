@@ -15,8 +15,8 @@
          * @return boolean a value indicating whether the rule permits the role or permission it is associated with.
          */
         public function execute($user, $item, $params){
-            if(isset($param['realty'])){
-                return $param['realty']->created_by == $user;
+            if(isset($params['realty'])){
+                return $params['realty']->created_by == $user;
             }
             
             return false;

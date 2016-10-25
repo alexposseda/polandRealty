@@ -21,7 +21,7 @@
                 m2, <?= $model->floor ?> <?= Yii::t('realty', 'floor of') ?> <?= $model->floors_count ?></p>
         </div>
         <div class="card-action">
-            <p class="realty-type"><?= $model->buildingType->title ?></p>
+            <p class="realty-type"><?= $model->propertyType->title ?></p>
             <p class="adv-type"><?= $model->adType->title ?></p>
             <div class="clearfix"></div>
         </div>

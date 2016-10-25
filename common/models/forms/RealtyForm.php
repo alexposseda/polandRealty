@@ -4,6 +4,7 @@
 
     use common\models\Location;
     use common\models\Realty;
+    use common\models\RealtyLang;
     use Yii;
     use yii\base\Exception;
     use yii\base\Model;
@@ -13,6 +14,7 @@
         public $contact;
         public $location;
         public $postalCode;
+        public $description_pl;
 
         public function __construct(Realty $realty){
             $this->realty = $realty;
@@ -41,6 +43,15 @@
                     throw new Exception('');
                 }
                 $this->location->realty_id = $this->realty->id;
+                if(!empty($this->description_pl)) {
+                    $langModel = new RealtyLang([
+                        'realty_id' => $this->realty->id,
+                        'language' => 2,
+                        'description' => $this->description_pl
+                    ]);
+
+                    $langModel->save();
+                }
                 if(!$this->location->save()){
                     throw new Exception('');
                 }

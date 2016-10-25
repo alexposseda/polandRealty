@@ -1,5 +1,5 @@
 <?php
-    namespace backend\models;
+    namespace frontend\models;
 
     use yii\alexposseda\fileManager\FileManager;
     use yii\alexposseda\fileManager\models\FileManagerModel;

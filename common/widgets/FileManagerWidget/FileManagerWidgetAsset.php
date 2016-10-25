@@ -13,6 +13,6 @@
         public $js = ['fileManager.js', 'fileManagerWidget.js'];
 
         public $depends = [
-            'backend\assets\AppAsset'
+            'frontend\assets\AppAsset'
         ];
     }

@@ -28,7 +28,7 @@ function fmwInit(id, setting){
                     } else {
                         fmwMessageBox.find('.fmw-message').remove();
                         $(this).val('').parent().removeClass('has-success').removeClass('has-error');
-                        var item = $('<div class="col-lg-6 fmw-galleryBox-item"><img src="' + response.file.url + response.file.path + '"><div class="fmw-actions"><button type="button" class="btn btn-danger fmw-removeBtn" data-path="' + response.file.path + '"><span class="glyphicon glyphicon-remove"></span></button></div>');
+                        var item = $('<div class="col l4 fmw-galleryBox-item"><img src="' + response.file.url + response.file.path + '"><div class="fmw-actions"><button type="button" class="btn btn-danger fmw-removeBtn" data-path="' + response.file.path + '"><i class="material-icons">remove</i></button></div>');
                         fmwGalleryBox.append(item);
                         $(this).removeAttr('disabled');
                         addRemoveHandler();

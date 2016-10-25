@@ -7,25 +7,25 @@
      */
 
 ?>
-<div class="fmw-container panel panel-default" id="<?= $widgetId?>">
-    <div class="panel-heading"><?= $title?></div>
-    <div class="panel-body fmw-content">
+<div class="fmw-container card-panel" id="<?= $widgetId?>">
+    <div class="card-title"><?= $title?></div>
+    <div class="card-content fmw-content">
         <?php
             if(!empty($notSavedFiles)):
                 ?>
-                <div class="panel panel-danger fmw-notsaved">
-                    <div class="panel-heading"><?= Yii::t('FileManagerWidget', 'Not Saved Files')?></div>
-                    <div class="panel-body">
+                <div class="card-panel red lighten-3 fmw-notsaved">
+                    <div class="card-title"><?= Yii::t('FileManagerWidget', 'Not Saved Files')?></div>
+                    <div class="card-content">
                         <div class="row fmw-notsaved-gallery">
                             <?php foreach($notSavedFiles as $file): ?>
-                                <div class="col-lg-6 fmw-notsaved-item">
+                                <div class="col l4 fmw-notsaved-item">
                                     <img src="<?= FileManager::getInstance()->getStorageUrl().$file ?>">
                                     <div class="fmw-actions">
-                                        <button type="button" class="btn btn-danger fmw-removeBtn" data-path="<?= $file ?>">
-                                            <span class="glyphicon glyphicon-remove"></span>
+                                        <button type="button" class="btn red fmw-removeBtn" data-path="<?= $file ?>">
+                                            <i class="material-icons">remove</i>
                                         </button>
-                                        <button type="button" class="btn btn-success fmw-replaceBtn" data-path="<?= $file ?>">
-                                            <span class="glyphicon glyphicon-plus"></span>
+                                        <button type="button" class="btn fmw-replaceBtn" data-path="<?= $file ?>">
+                                            <i class="material-icons">add</i>
                                         </button>
                                     </div>
                                 </div>
@@ -46,11 +46,11 @@
                 if(!empty($savedFiles)):
                     foreach($savedFiles as $file):
                         ?>
-                        <div class="col-lg-6 fmw-galleryBox-item">
+                        <div class="col l4 fmw-galleryBox-item">
                             <img src="<?= FileManager::getInstance()->getStorageUrl().$file?>">
                             <div class="fmw-actions">
                                 <button type="button" class="btn btn-warning fmw-removeBtn" data-path="<?= $file?>">
-                                    <span class="glyphicon glyphicon-remove"></span>
+                                    <i class="material-icons">remove</i>
                                 </button>
                             </div>
                         </div>
