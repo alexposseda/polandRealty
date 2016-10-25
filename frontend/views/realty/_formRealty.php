@@ -8,13 +8,15 @@
     use common\models\Country;
     use common\models\forms\ContactForm;
     use common\models\PropertyType;
-    use common\widgets\MapWidget\FormMapWidget;
+use common\widgets\FileManagerWidget\FileManagerWidget;
+use common\widgets\MapWidget\FormMapWidget;
     use frontend\assets\RealtyFormAsset;
     use macgyer\yii2materializecss\lib\Html;
     use macgyer\yii2materializecss\widgets\form\ActiveForm;
     use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
-    $advertingType = ArrayHelper::map(AdType::find()
+$advertingType = ArrayHelper::map(AdType::find()
                                             ->select(['id', 'title'])
                                             ->all(), 'id', 'title');
 
@@ -111,10 +113,18 @@
         </div>
         <div class="row no-margin-bottom">
             <div class="col l12">
+                <div>
                 <p class="label"><?= Yii::t('app', 'Description') ?></p>
                 <?= $form->field($model->realty, 'description')
                          ->textarea(['rows' => '4'])
                          ->label(false) ?>
+                </div>
+                <div>
+                    <p class="label"><?= Yii::t('app', 'Description', [], 'pl') ?></p>
+                    <?= $form->field($model, 'description_pl')
+                        ->textarea(['rows' => '4'])
+                        ->label(false) ?>
+                </div>
             </div>
         </div><!--Description-->
         <div class="row no-margin-bottom">
@@ -186,6 +196,17 @@
                 </div>
             </div><!--Map-->
 
+        </div>
+        <div class="row no-margin-bottom">
+            <?= Html::activeHiddenInput($model->realty, 'gallery', ['id' => 'galleryInp'])?>
+            <?= FileManagerWidget::widget([
+                'uploadUrl' => Url::to(['realty/gallery-upload']),
+                'removeUrl' => Url::to(['realty/gallery-remove']),
+                'files' => ($model->realty->isNewRecord) ? [] : (empty($model->realty->gallery)) ? [] : $model->realty->gallery,
+                'maxFiles' => 5,
+                'targetInputId' => 'galleryInp',
+                'title' => 'Gallery'
+            ])?>
         </div>
         <?= Html::submitButton($model->realty->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),['class'=>'btn light-blue waves-effect waves-light']) ?>
         <?php ActiveForm::end() ?>

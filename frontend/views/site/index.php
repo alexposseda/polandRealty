@@ -42,7 +42,7 @@ JS;
     <div class="container">
         <?= ListView::widget([
                                  'dataProvider' => $dataProvider,
-                                 'itemView'     => '_realtyItem',
+                                 'itemView'     => '../realty/_realtyItem',
                                  'layout'       => "<div class='row'>{items}</div>\n<div class='pagination-wrap'>{pager}</div>",
             
                                  'itemOptions' => [

@@ -37,7 +37,7 @@ $(document).ready(function(){
     });
 
 
-    var paramName = 'property_type_id';
+    var paramName = 'building_type_id';
     var propId = location.href.substr(location.href.lastIndexOf(paramName)+paramName.length+4, 1);
 
     $('.general-menu a').each(function(){

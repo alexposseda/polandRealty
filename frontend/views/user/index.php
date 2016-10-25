@@ -11,5 +11,6 @@
     <?= ListView::widget([
                              'itemView'     => '_item',
                              'dataProvider' => $dataProvider,
+        'layout'       => "<div class='row'>{items}</div>\n<div class='pagination-wrap'>{pager}</div>",
                          ]) ?>
 </div>
