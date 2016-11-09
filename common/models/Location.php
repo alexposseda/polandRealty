@@ -48,7 +48,7 @@ class Location extends ActiveRecord
     {
         return [
             [['realty_id', 'country_id', 'created_at', 'updated_at'], 'integer'],
-            [['city', 'street', 'coordinates'], 'required'],
+            [['city', 'street'], 'required'],
             [['city', 'region', 'street', 'coordinates'], 'string', 'max' => 255],
             [['country_id'], 'exist', 'skipOnError' => true, 'targetClass' => Country::className(), 'targetAttribute' => ['country_id' => 'id']],
             [['realty_id'], 'exist', 'skipOnError' => true, 'targetClass' => Realty::className(), 'targetAttribute' => ['realty_id' => 'id']],

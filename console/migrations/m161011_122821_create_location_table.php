@@ -25,8 +25,7 @@
                 'region'      => $this->string(),
                 'street'      => $this->string()
                                       ->notNull(),
-                'coordinates' => $this->string()
-                                      ->notNull(),
+                'coordinates' => $this->string(),
                 'created_at'  => $this->integer(),
                 'updated_at'  => $this->integer(),
             ], $tableOptions);
