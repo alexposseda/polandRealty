@@ -76,7 +76,7 @@
 
             $searchModel = new RealtySearch();
             $dataProvider = $searchModel->search();
-            $dataProvider->pagination = ['pageSize' => 4,];
+            $dataProvider->pagination = ['pageSize' => 16,];
     
             return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
         }

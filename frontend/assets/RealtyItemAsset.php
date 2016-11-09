@@ -8,6 +8,7 @@
         public $css     = [
             'css/realty_item.css',
             'css/slick.css',
+            'css/slick-style.css',
             'css/slick-theme.css',
         ];
         public $js      = [

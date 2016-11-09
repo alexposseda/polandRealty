@@ -79,7 +79,7 @@ class RealtyController extends Controller
     {
         $searchModel = new RealtySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination = ['pageSize' => 4,];
+        $dataProvider->pagination = ['pageSize' => 16,];
 
         return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
     }
