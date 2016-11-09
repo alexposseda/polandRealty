@@ -29,7 +29,7 @@
     foreach($propertyTypes as $pt){
         $menuItems[] = [
             'label' => $pt->title,
-            'url'   => ['realty/index', 'RealtySearch[building_type_id]' => $pt->id ]
+            'url'   => ['realty/index', 'RealtySearch[property_type_id]' => $pt->id ]
         ];
     }
     

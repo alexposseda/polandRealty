@@ -447,7 +447,12 @@
 }
 
 .adv-small {
+    position: relative;
     color: #000;
+}
+
+.adv-small img{
+    max-height: 170px;
 }
 
 .adv-small .card-title {
@@ -537,4 +542,9 @@ input.validate+label:after{
 }
 input.validate+label.active:after{
     top: 65px;
+}
+
+/*for view slider image*/
+.slick-slider img{
+    max-height: 200px;
 }

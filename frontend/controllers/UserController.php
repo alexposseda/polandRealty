@@ -41,9 +41,7 @@
 
         public function actionIndex(){
             $searchModel = new RealtySearch();
-            if(!Yii::$app->authManager->checkAccess(Yii::$app->user->id, 'manager')){
-                $searchModel->created_by = Yii::$app->user->id;
-            }
+            $searchModel->created_by = Yii::$app->user->id;
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
             return $this->render('index', ['dataProvider' => $dataProvider, 'searchModel' => $searchModel]);
