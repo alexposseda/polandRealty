@@ -47,4 +47,8 @@ $(document).ready(function(){
             $(this).parent().addClass('active');
         }
     });
+
+    $('#filter-location').on('click', function(){
+        $('#location-btn').trigger('click');
+    })
 });

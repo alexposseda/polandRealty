@@ -117,7 +117,7 @@ if (empty(Yii::$app->request->get('RealtySearch')['property_type_id'])) {
                 <div class="row no-margin-bottom">
                     <div class="input-field col s12 m8 l8 relative">
                         <label class="label" for="filter-location">Location</label>
-                        <input type="text" id="filter-location" class="validate" placeholder="Location">
+                        <input type="text" id="filter-location" class="validate" placeholder="Location" readonly>
                         <a href="#modal-detail-location" class="btn-floating input-btn tooltipped modal-trigger"
                            id="location-btn"
                            data-position="right" data-tooltip="Detail Location">
